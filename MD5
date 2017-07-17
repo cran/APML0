@@ -1,0 +1,14 @@
+75de472ba622650868180ed16703c9aa *DESCRIPTION
+ee83ea571ca41ce1b8ba14649bdf5275 *NAMESPACE
+cfb4e9b75d659b00018e64ec508acfd3 *R/APML0.R
+c0ef5c3271df303d9266c1f3b8c55067 *R/RcppExports.R
+c482f4b9df60a5015513a6b3873c1d3f *R/net_cox.R
+1cf235a9efca94854f63e0fa6f16ed17 *R/net_lm.R
+3bd72e36039d6e5bab000fbc69efbac7 *R/print.APML0.R
+fcfc00c780a5eeb13065050e0c631771 *inst/include/APML0.h
+42e9ffd290ebfaa45f5a2118fd730313 *inst/include/APML0_RcppExports.h
+6c15a3dab93be78728acaaa97c5019c7 *man/APML0-package.Rd
+2d29c9a07f230338eb508c4ee64b3f4c *man/APML0.Rd
+4421ce2e23fbc0020b5b1ba458d48bd8 *man/print.APML0.Rd
+38a72f4e91ba28832fc1a8a67d9c0eb2 *src/APML0.cpp
+c6a7fdba7179bd8e4d72dcba1dc5b0df *src/RcppExports.cpp
