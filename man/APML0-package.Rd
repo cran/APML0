@@ -5,7 +5,7 @@
 Augmented and Penalized Minimization Method L0
 }
 \description{
-Fit linear and Cox models regularized with L0, lasso (L1), elastic-net (L1 and L2), or net (L1 and Laplacian) penalty, and their adaptive forms, such as adaptive lasso / elastic-net and net adjusting for signs of linked coefficients. It solves L0 penalty problem by simultaneously selecting regularization parameters and the number of non-zero coefficients. This augmented and penalized minimization method provides an approximation solution to the L0 penalty problem, but runs as fast as L1 regularization problem.
+Fit linear, logistic and Cox models regularized with L0, lasso (L1), elastic-net (L1 and L2), or net (L1 and Laplacian) penalty, and their adaptive forms, such as adaptive lasso / elastic-net and net adjusting for signs of linked coefficients. It solves L0 penalty problem by simultaneously selecting regularization parameters and the number of non-zero coefficients. This augmented and penalized minimization method provides an approximation solution to the L0 penalty problem, but runs as fast as L1 regularization problem.
 
 The package uses one-step coordinate descent algorithm and runs extremely fast by taking into account the sparsity structure of coefficients. It could deal with very high dimensional data.
 }
@@ -13,8 +13,8 @@ The package uses one-step coordinate descent algorithm and runs extremely fast b
 \tabular{ll}{
 Package: \tab APML0\cr
 Type: \tab Package\cr
-Version: \tab 0.2\cr
-Date: \tab 2017-07-15\cr
+Version: \tab 0.3\cr
+Date: \tab 2017-08-24\cr
 License: \tab GPL (>= 2)\cr
 }
 Functions:
@@ -53,6 +53,19 @@ y=rnorm(N,xb)
 
 fiti=APML0(x,y,penalty="Lasso",nlambda=10) # Lasso
 fiti2=APML0(x,y,penalty="Lasso",nlambda=10,nfolds=10) # Lasso
+# attributes(fiti)
+
+
+###  Logistic model  ###
+set.seed(1213)
+N=100;p=30;p1=5
+x=matrix(rnorm(N*p),N,p)
+beta=rnorm(p1)
+xb=x[,1:p1]\%*\%beta
+y=rbinom(n=N, size=1, prob=1.0/(1.0+exp(-xb)))
+
+fiti=APML0(x,y,family="binary",penalty="Lasso",nlambda=10) # Lasso
+fiti2=APML0(x,y,family="binary",penalty="Lasso",nlambda=10,nfolds=10) # Lasso
 # attributes(fiti)
 
 

@@ -21,16 +21,16 @@ cvTrimLmC <- function(beta, nn, nn2, loco, XF, yF, NF, a0) {
     .Call('_APML0_cvTrimLmC', PACKAGE = 'APML0', beta, nn, nn2, loco, XF, yF, NF, a0)
 }
 
-EnetLmC <- function(X, y, alpha, lambda, nlambda, ilambda, wbeta, isd, p, N0, thresh, maxit, thresh2) {
-    .Call('_APML0_EnetLmC', PACKAGE = 'APML0', X, y, alpha, lambda, nlambda, ilambda, wbeta, isd, p, N0, thresh, maxit, thresh2)
+EnetLmC <- function(X, y, alpha, lambda, nlambda, ilambda, wbeta, p, N0, thresh, maxit, thresh2) {
+    .Call('_APML0_EnetLmC', PACKAGE = 'APML0', X, y, alpha, lambda, nlambda, ilambda, wbeta, p, N0, thresh, maxit, thresh2)
 }
 
 cvEnetLmC <- function(X, y, alpha, lambda, nlambda, wbeta, N, p, thresh, maxit, XF, yF, NF, thresh2) {
     .Call('_APML0_cvEnetLmC', PACKAGE = 'APML0', X, y, alpha, lambda, nlambda, wbeta, N, p, thresh, maxit, XF, yF, NF, thresh2)
 }
 
-NetLmC <- function(X, y, alpha, lambda, nlambda, ilambda, wbeta, Omega, loc, nadj, isd, p, N0, thresh, maxit, thresh2) {
-    .Call('_APML0_NetLmC', PACKAGE = 'APML0', X, y, alpha, lambda, nlambda, ilambda, wbeta, Omega, loc, nadj, isd, p, N0, thresh, maxit, thresh2)
+NetLmC <- function(X, y, alpha, lambda, nlambda, ilambda, wbeta, Omega, loc, nadj, p, N0, thresh, maxit, thresh2) {
+    .Call('_APML0_NetLmC', PACKAGE = 'APML0', X, y, alpha, lambda, nlambda, ilambda, wbeta, Omega, loc, nadj, p, N0, thresh, maxit, thresh2)
 }
 
 cvNetLmC <- function(X, y, alpha, lambda, nlambda, wbeta, Omega, loc, nadj, N, p, thresh, maxit, XF, yF, NF, thresh2) {
@@ -49,20 +49,44 @@ cvTrimCoxC <- function(beta, nn, nn2, loco, XF, NF, neventF, nevent1F, loc1F, nF
     .Call('_APML0_cvTrimCoxC', PACKAGE = 'APML0', beta, nn, nn2, loco, XF, NF, neventF, nevent1F, loc1F, nF, X, N, nevent, nevent1, loc1, n, ifast, itwo)
 }
 
-EnetCoxC <- function(X, tevent, alpha, lambda, nlambda, wbeta, N, nevent, nevent1, loc1, n, isd, p, N0, thresh, maxit, ifast) {
-    .Call('_APML0_EnetCoxC', PACKAGE = 'APML0', X, tevent, alpha, lambda, nlambda, wbeta, N, nevent, nevent1, loc1, n, isd, p, N0, thresh, maxit, ifast)
+EnetCoxC <- function(X, tevent, alpha, lambda, nlambda, ilambda, wbeta, N, nevent, nevent1, loc1, n, p, N0, thresh, maxit, ifast) {
+    .Call('_APML0_EnetCoxC', PACKAGE = 'APML0', X, tevent, alpha, lambda, nlambda, ilambda, wbeta, N, nevent, nevent1, loc1, n, p, N0, thresh, maxit, ifast)
 }
 
 cvEnetCoxC <- function(X, tevent, alpha, lambda, nlambda, wbeta, N, nevent, nevent1, loc1, n, p, N0, thresh, maxit, ifast, XF, NF, neventF, nevent1F, loc1F, nF) {
     .Call('_APML0_cvEnetCoxC', PACKAGE = 'APML0', X, tevent, alpha, lambda, nlambda, wbeta, N, nevent, nevent1, loc1, n, p, N0, thresh, maxit, ifast, XF, NF, neventF, nevent1F, loc1F, nF)
 }
 
-NetCoxC <- function(X, tevent, alpha, lambda, nlambda, wbeta, Omega, loc, nadj, N, nevent, nevent1, loc1, n, isd, p, N0, thresh, maxit, ifast) {
-    .Call('_APML0_NetCoxC', PACKAGE = 'APML0', X, tevent, alpha, lambda, nlambda, wbeta, Omega, loc, nadj, N, nevent, nevent1, loc1, n, isd, p, N0, thresh, maxit, ifast)
+NetCoxC <- function(X, tevent, alpha, lambda, nlambda, ilambda, wbeta, Omega, loc, nadj, N, nevent, nevent1, loc1, n, p, N0, thresh, maxit, ifast) {
+    .Call('_APML0_NetCoxC', PACKAGE = 'APML0', X, tevent, alpha, lambda, nlambda, ilambda, wbeta, Omega, loc, nadj, N, nevent, nevent1, loc1, n, p, N0, thresh, maxit, ifast)
 }
 
 cvNetCoxC <- function(X, tevent, alpha, lambda, nlambda, wbeta, Omega, loc, nadj, N, nevent, nevent1, loc1, n, p, N0, thresh, maxit, ifast, XF, NF, neventF, nevent1F, loc1F, nF) {
     .Call('_APML0_cvNetCoxC', PACKAGE = 'APML0', X, tevent, alpha, lambda, nlambda, wbeta, Omega, loc, nadj, N, nevent, nevent1, loc1, n, p, N0, thresh, maxit, ifast, XF, NF, neventF, nevent1F, loc1F, nF)
+}
+
+maxLambdaLogC <- function(X, Z, alpha, wbeta, N0, p) {
+    .Call('_APML0_maxLambdaLogC', PACKAGE = 'APML0', X, Z, alpha, wbeta, N0, p)
+}
+
+cvTrimLogC <- function(beta, nn, nn2, loco, XF, yF, NF, threshP) {
+    .Call('_APML0_cvTrimLogC', PACKAGE = 'APML0', beta, nn, nn2, loco, XF, yF, NF, threshP)
+}
+
+EnetLogC <- function(X, y, alpha, lambda, nlambda, ilambda, wbeta, wbetai, p, N0, thresh, maxit, threshP) {
+    .Call('_APML0_EnetLogC', PACKAGE = 'APML0', X, y, alpha, lambda, nlambda, ilambda, wbeta, wbetai, p, N0, thresh, maxit, threshP)
+}
+
+cvEnetLogC <- function(X, y, alpha, lambda, nlambda, wbeta, wbetai, p, N0, thresh, maxit, XF, yF, NF, threshP) {
+    .Call('_APML0_cvEnetLogC', PACKAGE = 'APML0', X, y, alpha, lambda, nlambda, wbeta, wbetai, p, N0, thresh, maxit, XF, yF, NF, threshP)
+}
+
+NetLogC <- function(X, y, alpha, lambda, nlambda, ilambda, wbeta, wbetai, Omega, loc, nadj, p, N0, thresh, maxit, threshP) {
+    .Call('_APML0_NetLogC', PACKAGE = 'APML0', X, y, alpha, lambda, nlambda, ilambda, wbeta, wbetai, Omega, loc, nadj, p, N0, thresh, maxit, threshP)
+}
+
+cvNetLogC <- function(X, y, alpha, lambda, nlambda, wbeta, wbetai, Omega, loc, nadj, p, N0, thresh, maxit, XF, yF, NF, threshP) {
+    .Call('_APML0_cvNetLogC', PACKAGE = 'APML0', X, y, alpha, lambda, nlambda, wbeta, wbetai, Omega, loc, nadj, p, N0, thresh, maxit, XF, yF, NF, threshP)
 }
 
 # Register entry points for exported C++ functions

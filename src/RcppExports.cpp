@@ -174,8 +174,8 @@ RcppExport SEXP _APML0_cvTrimLmC(SEXP betaSEXP, SEXP nnSEXP, SEXP nn2SEXP, SEXP 
     return rcpp_result_gen;
 }
 // EnetLmC
-List EnetLmC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, int isd, int p, int N0, double thresh, int maxit, double thresh2);
-static SEXP _APML0_EnetLmC_try(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP isdSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP thresh2SEXP) {
+List EnetLmC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, int p, int N0, double thresh, int maxit, double thresh2);
+static SEXP _APML0_EnetLmC_try(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP thresh2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
@@ -185,21 +185,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type nlambda(nlambdaSEXP);
     Rcpp::traits::input_parameter< int >::type ilambda(ilambdaSEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type wbeta(wbetaSEXP);
-    Rcpp::traits::input_parameter< int >::type isd(isdSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type N0(N0SEXP);
     Rcpp::traits::input_parameter< double >::type thresh(threshSEXP);
     Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
     Rcpp::traits::input_parameter< double >::type thresh2(thresh2SEXP);
-    rcpp_result_gen = Rcpp::wrap(EnetLmC(X, y, alpha, lambda, nlambda, ilambda, wbeta, isd, p, N0, thresh, maxit, thresh2));
+    rcpp_result_gen = Rcpp::wrap(EnetLmC(X, y, alpha, lambda, nlambda, ilambda, wbeta, p, N0, thresh, maxit, thresh2));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _APML0_EnetLmC(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP isdSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP thresh2SEXP) {
+RcppExport SEXP _APML0_EnetLmC(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP thresh2SEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_APML0_EnetLmC_try(XSEXP, ySEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, ilambdaSEXP, wbetaSEXP, isdSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, thresh2SEXP));
+        rcpp_result_gen = PROTECT(_APML0_EnetLmC_try(XSEXP, ySEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, ilambdaSEXP, wbetaSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, thresh2SEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -259,8 +258,8 @@ RcppExport SEXP _APML0_cvEnetLmC(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP la
     return rcpp_result_gen;
 }
 // NetLmC
-List NetLmC(Eigen::MatrixXd& X, Eigen::VectorXd& y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int isd, int p, int N0, double thresh, int maxit, double thresh2);
-static SEXP _APML0_NetLmC_try(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP isdSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP thresh2SEXP) {
+List NetLmC(Eigen::MatrixXd& X, Eigen::VectorXd& y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int p, int N0, double thresh, int maxit, double thresh2);
+static SEXP _APML0_NetLmC_try(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP thresh2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< Eigen::MatrixXd& >::type X(XSEXP);
@@ -273,21 +272,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Eigen::SparseMatrix<double>& >::type Omega(OmegaSEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type loc(locSEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXi >::type nadj(nadjSEXP);
-    Rcpp::traits::input_parameter< int >::type isd(isdSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type N0(N0SEXP);
     Rcpp::traits::input_parameter< double >::type thresh(threshSEXP);
     Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
     Rcpp::traits::input_parameter< double >::type thresh2(thresh2SEXP);
-    rcpp_result_gen = Rcpp::wrap(NetLmC(X, y, alpha, lambda, nlambda, ilambda, wbeta, Omega, loc, nadj, isd, p, N0, thresh, maxit, thresh2));
+    rcpp_result_gen = Rcpp::wrap(NetLmC(X, y, alpha, lambda, nlambda, ilambda, wbeta, Omega, loc, nadj, p, N0, thresh, maxit, thresh2));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _APML0_NetLmC(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP isdSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP thresh2SEXP) {
+RcppExport SEXP _APML0_NetLmC(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP thresh2SEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_APML0_NetLmC_try(XSEXP, ySEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, ilambdaSEXP, wbetaSEXP, OmegaSEXP, locSEXP, nadjSEXP, isdSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, thresh2SEXP));
+        rcpp_result_gen = PROTECT(_APML0_NetLmC_try(XSEXP, ySEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, ilambdaSEXP, wbetaSEXP, OmegaSEXP, locSEXP, nadjSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, thresh2SEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -474,8 +472,8 @@ RcppExport SEXP _APML0_cvTrimCoxC(SEXP betaSEXP, SEXP nnSEXP, SEXP nn2SEXP, SEXP
     return rcpp_result_gen;
 }
 // EnetCoxC
-List EnetCoxC(Eigen::MatrixXd X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int isd, int p, int N0, double thresh, int maxit, int ifast);
-static SEXP _APML0_EnetCoxC_try(SEXP XSEXP, SEXP teventSEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP wbetaSEXP, SEXP NSEXP, SEXP neventSEXP, SEXP nevent1SEXP, SEXP loc1SEXP, SEXP nSEXP, SEXP isdSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP ifastSEXP) {
+List EnetCoxC(Eigen::MatrixXd X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast);
+static SEXP _APML0_EnetCoxC_try(SEXP XSEXP, SEXP teventSEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP NSEXP, SEXP neventSEXP, SEXP nevent1SEXP, SEXP loc1SEXP, SEXP nSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP ifastSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
@@ -483,27 +481,27 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< int >::type nlambda(nlambdaSEXP);
+    Rcpp::traits::input_parameter< int >::type ilambda(ilambdaSEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type wbeta(wbetaSEXP);
     Rcpp::traits::input_parameter< int >::type N(NSEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXi >::type nevent(neventSEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXi >::type nevent1(nevent1SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXi >::type loc1(loc1SEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< int >::type isd(isdSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type N0(N0SEXP);
     Rcpp::traits::input_parameter< double >::type thresh(threshSEXP);
     Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
     Rcpp::traits::input_parameter< int >::type ifast(ifastSEXP);
-    rcpp_result_gen = Rcpp::wrap(EnetCoxC(X, tevent, alpha, lambda, nlambda, wbeta, N, nevent, nevent1, loc1, n, isd, p, N0, thresh, maxit, ifast));
+    rcpp_result_gen = Rcpp::wrap(EnetCoxC(X, tevent, alpha, lambda, nlambda, ilambda, wbeta, N, nevent, nevent1, loc1, n, p, N0, thresh, maxit, ifast));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _APML0_EnetCoxC(SEXP XSEXP, SEXP teventSEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP wbetaSEXP, SEXP NSEXP, SEXP neventSEXP, SEXP nevent1SEXP, SEXP loc1SEXP, SEXP nSEXP, SEXP isdSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP ifastSEXP) {
+RcppExport SEXP _APML0_EnetCoxC(SEXP XSEXP, SEXP teventSEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP NSEXP, SEXP neventSEXP, SEXP nevent1SEXP, SEXP loc1SEXP, SEXP nSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP ifastSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_APML0_EnetCoxC_try(XSEXP, teventSEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, wbetaSEXP, NSEXP, neventSEXP, nevent1SEXP, loc1SEXP, nSEXP, isdSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, ifastSEXP));
+        rcpp_result_gen = PROTECT(_APML0_EnetCoxC_try(XSEXP, teventSEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, ilambdaSEXP, wbetaSEXP, NSEXP, neventSEXP, nevent1SEXP, loc1SEXP, nSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, ifastSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -571,8 +569,8 @@ RcppExport SEXP _APML0_cvEnetCoxC(SEXP XSEXP, SEXP teventSEXP, SEXP alphaSEXP, S
     return rcpp_result_gen;
 }
 // NetCoxC
-List NetCoxC(Eigen::MatrixXd& X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int isd, int p, int N0, double thresh, int maxit, int ifast);
-static SEXP _APML0_NetCoxC_try(SEXP XSEXP, SEXP teventSEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP wbetaSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP NSEXP, SEXP neventSEXP, SEXP nevent1SEXP, SEXP loc1SEXP, SEXP nSEXP, SEXP isdSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP ifastSEXP) {
+List NetCoxC(Eigen::MatrixXd& X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast);
+static SEXP _APML0_NetCoxC_try(SEXP XSEXP, SEXP teventSEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP NSEXP, SEXP neventSEXP, SEXP nevent1SEXP, SEXP loc1SEXP, SEXP nSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP ifastSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< Eigen::MatrixXd& >::type X(XSEXP);
@@ -580,6 +578,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< int >::type nlambda(nlambdaSEXP);
+    Rcpp::traits::input_parameter< int >::type ilambda(ilambdaSEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXd >::type wbeta(wbetaSEXP);
     Rcpp::traits::input_parameter< Eigen::SparseMatrix<double>& >::type Omega(OmegaSEXP);
     Rcpp::traits::input_parameter< Eigen::MatrixXd >::type loc(locSEXP);
@@ -589,21 +588,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Eigen::VectorXi >::type nevent1(nevent1SEXP);
     Rcpp::traits::input_parameter< Eigen::VectorXi >::type loc1(loc1SEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< int >::type isd(isdSEXP);
     Rcpp::traits::input_parameter< int >::type p(pSEXP);
     Rcpp::traits::input_parameter< int >::type N0(N0SEXP);
     Rcpp::traits::input_parameter< double >::type thresh(threshSEXP);
     Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
     Rcpp::traits::input_parameter< int >::type ifast(ifastSEXP);
-    rcpp_result_gen = Rcpp::wrap(NetCoxC(X, tevent, alpha, lambda, nlambda, wbeta, Omega, loc, nadj, N, nevent, nevent1, loc1, n, isd, p, N0, thresh, maxit, ifast));
+    rcpp_result_gen = Rcpp::wrap(NetCoxC(X, tevent, alpha, lambda, nlambda, ilambda, wbeta, Omega, loc, nadj, N, nevent, nevent1, loc1, n, p, N0, thresh, maxit, ifast));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _APML0_NetCoxC(SEXP XSEXP, SEXP teventSEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP wbetaSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP NSEXP, SEXP neventSEXP, SEXP nevent1SEXP, SEXP loc1SEXP, SEXP nSEXP, SEXP isdSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP ifastSEXP) {
+RcppExport SEXP _APML0_NetCoxC(SEXP XSEXP, SEXP teventSEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP NSEXP, SEXP neventSEXP, SEXP nevent1SEXP, SEXP loc1SEXP, SEXP nSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP ifastSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_APML0_NetCoxC_try(XSEXP, teventSEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, wbetaSEXP, OmegaSEXP, locSEXP, nadjSEXP, NSEXP, neventSEXP, nevent1SEXP, loc1SEXP, nSEXP, isdSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, ifastSEXP));
+        rcpp_result_gen = PROTECT(_APML0_NetCoxC_try(XSEXP, teventSEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, ilambdaSEXP, wbetaSEXP, OmegaSEXP, locSEXP, nadjSEXP, NSEXP, neventSEXP, nevent1SEXP, loc1SEXP, nSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, ifastSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -673,6 +671,256 @@ RcppExport SEXP _APML0_cvNetCoxC(SEXP XSEXP, SEXP teventSEXP, SEXP alphaSEXP, SE
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// maxLambdaLogC
+double maxLambdaLogC(Eigen::MatrixXd X, Eigen::VectorXd Z, double alpha, Eigen::VectorXd wbeta, int N0, int p);
+static SEXP _APML0_maxLambdaLogC_try(SEXP XSEXP, SEXP ZSEXP, SEXP alphaSEXP, SEXP wbetaSEXP, SEXP N0SEXP, SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type Z(ZSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type wbeta(wbetaSEXP);
+    Rcpp::traits::input_parameter< int >::type N0(N0SEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(maxLambdaLogC(X, Z, alpha, wbeta, N0, p));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _APML0_maxLambdaLogC(SEXP XSEXP, SEXP ZSEXP, SEXP alphaSEXP, SEXP wbetaSEXP, SEXP N0SEXP, SEXP pSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_APML0_maxLambdaLogC_try(XSEXP, ZSEXP, alphaSEXP, wbetaSEXP, N0SEXP, pSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// cvTrimLogC
+Eigen::VectorXd cvTrimLogC(Eigen::VectorXd beta, int nn, int nn2, Eigen::VectorXi loco, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double threshP);
+static SEXP _APML0_cvTrimLogC_try(SEXP betaSEXP, SEXP nnSEXP, SEXP nn2SEXP, SEXP locoSEXP, SEXP XFSEXP, SEXP yFSEXP, SEXP NFSEXP, SEXP threshPSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type beta(betaSEXP);
+    Rcpp::traits::input_parameter< int >::type nn(nnSEXP);
+    Rcpp::traits::input_parameter< int >::type nn2(nn2SEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi >::type loco(locoSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type XF(XFSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type yF(yFSEXP);
+    Rcpp::traits::input_parameter< int >::type NF(NFSEXP);
+    Rcpp::traits::input_parameter< double >::type threshP(threshPSEXP);
+    rcpp_result_gen = Rcpp::wrap(cvTrimLogC(beta, nn, nn2, loco, XF, yF, NF, threshP));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _APML0_cvTrimLogC(SEXP betaSEXP, SEXP nnSEXP, SEXP nn2SEXP, SEXP locoSEXP, SEXP XFSEXP, SEXP yFSEXP, SEXP NFSEXP, SEXP threshPSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_APML0_cvTrimLogC_try(betaSEXP, nnSEXP, nn2SEXP, locoSEXP, XFSEXP, yFSEXP, NFSEXP, threshPSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// EnetLogC
+List EnetLogC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::ArrayXd wbeta, Eigen::ArrayXd wbetai, int p, int N0, double thresh, int maxit, double threshP);
+static SEXP _APML0_EnetLogC_try(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP wbetaiSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP threshPSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type y(ySEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< int >::type nlambda(nlambdaSEXP);
+    Rcpp::traits::input_parameter< int >::type ilambda(ilambdaSEXP);
+    Rcpp::traits::input_parameter< Eigen::ArrayXd >::type wbeta(wbetaSEXP);
+    Rcpp::traits::input_parameter< Eigen::ArrayXd >::type wbetai(wbetaiSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< int >::type N0(N0SEXP);
+    Rcpp::traits::input_parameter< double >::type thresh(threshSEXP);
+    Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
+    Rcpp::traits::input_parameter< double >::type threshP(threshPSEXP);
+    rcpp_result_gen = Rcpp::wrap(EnetLogC(X, y, alpha, lambda, nlambda, ilambda, wbeta, wbetai, p, N0, thresh, maxit, threshP));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _APML0_EnetLogC(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP wbetaiSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP threshPSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_APML0_EnetLogC_try(XSEXP, ySEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, ilambdaSEXP, wbetaSEXP, wbetaiSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, threshPSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// cvEnetLogC
+List cvEnetLogC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::ArrayXd wbeta, Eigen::ArrayXd wbetai, int p, int N0, double thresh, int maxit, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double threshP);
+static SEXP _APML0_cvEnetLogC_try(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP wbetaSEXP, SEXP wbetaiSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP XFSEXP, SEXP yFSEXP, SEXP NFSEXP, SEXP threshPSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type y(ySEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< int >::type nlambda(nlambdaSEXP);
+    Rcpp::traits::input_parameter< Eigen::ArrayXd >::type wbeta(wbetaSEXP);
+    Rcpp::traits::input_parameter< Eigen::ArrayXd >::type wbetai(wbetaiSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< int >::type N0(N0SEXP);
+    Rcpp::traits::input_parameter< double >::type thresh(threshSEXP);
+    Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type XF(XFSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type yF(yFSEXP);
+    Rcpp::traits::input_parameter< int >::type NF(NFSEXP);
+    Rcpp::traits::input_parameter< double >::type threshP(threshPSEXP);
+    rcpp_result_gen = Rcpp::wrap(cvEnetLogC(X, y, alpha, lambda, nlambda, wbeta, wbetai, p, N0, thresh, maxit, XF, yF, NF, threshP));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _APML0_cvEnetLogC(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP wbetaSEXP, SEXP wbetaiSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP XFSEXP, SEXP yFSEXP, SEXP NFSEXP, SEXP threshPSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_APML0_cvEnetLogC_try(XSEXP, ySEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, wbetaSEXP, wbetaiSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, XFSEXP, yFSEXP, NFSEXP, threshPSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// NetLogC
+List NetLogC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::ArrayXd wbeta, Eigen::ArrayXd wbetai, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int p, int N0, double thresh, int maxit, double threshP);
+static SEXP _APML0_NetLogC_try(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP wbetaiSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP threshPSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type y(ySEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< int >::type nlambda(nlambdaSEXP);
+    Rcpp::traits::input_parameter< int >::type ilambda(ilambdaSEXP);
+    Rcpp::traits::input_parameter< Eigen::ArrayXd >::type wbeta(wbetaSEXP);
+    Rcpp::traits::input_parameter< Eigen::ArrayXd >::type wbetai(wbetaiSEXP);
+    Rcpp::traits::input_parameter< Eigen::SparseMatrix<double>& >::type Omega(OmegaSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type loc(locSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi >::type nadj(nadjSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< int >::type N0(N0SEXP);
+    Rcpp::traits::input_parameter< double >::type thresh(threshSEXP);
+    Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
+    Rcpp::traits::input_parameter< double >::type threshP(threshPSEXP);
+    rcpp_result_gen = Rcpp::wrap(NetLogC(X, y, alpha, lambda, nlambda, ilambda, wbeta, wbetai, Omega, loc, nadj, p, N0, thresh, maxit, threshP));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _APML0_NetLogC(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP ilambdaSEXP, SEXP wbetaSEXP, SEXP wbetaiSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP threshPSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_APML0_NetLogC_try(XSEXP, ySEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, ilambdaSEXP, wbetaSEXP, wbetaiSEXP, OmegaSEXP, locSEXP, nadjSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, threshPSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// cvNetLogC
+List cvNetLogC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::ArrayXd wbeta, Eigen::ArrayXd wbetai, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int p, int N0, double thresh, int maxit, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double threshP);
+static SEXP _APML0_cvNetLogC_try(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP wbetaSEXP, SEXP wbetaiSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP XFSEXP, SEXP yFSEXP, SEXP NFSEXP, SEXP threshPSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type y(ySEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< int >::type nlambda(nlambdaSEXP);
+    Rcpp::traits::input_parameter< Eigen::ArrayXd >::type wbeta(wbetaSEXP);
+    Rcpp::traits::input_parameter< Eigen::ArrayXd >::type wbetai(wbetaiSEXP);
+    Rcpp::traits::input_parameter< Eigen::SparseMatrix<double>& >::type Omega(OmegaSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type loc(locSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXi >::type nadj(nadjSEXP);
+    Rcpp::traits::input_parameter< int >::type p(pSEXP);
+    Rcpp::traits::input_parameter< int >::type N0(N0SEXP);
+    Rcpp::traits::input_parameter< double >::type thresh(threshSEXP);
+    Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type XF(XFSEXP);
+    Rcpp::traits::input_parameter< Eigen::VectorXd >::type yF(yFSEXP);
+    Rcpp::traits::input_parameter< int >::type NF(NFSEXP);
+    Rcpp::traits::input_parameter< double >::type threshP(threshPSEXP);
+    rcpp_result_gen = Rcpp::wrap(cvNetLogC(X, y, alpha, lambda, nlambda, wbeta, wbetai, Omega, loc, nadj, p, N0, thresh, maxit, XF, yF, NF, threshP));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _APML0_cvNetLogC(SEXP XSEXP, SEXP ySEXP, SEXP alphaSEXP, SEXP lambdaSEXP, SEXP nlambdaSEXP, SEXP wbetaSEXP, SEXP wbetaiSEXP, SEXP OmegaSEXP, SEXP locSEXP, SEXP nadjSEXP, SEXP pSEXP, SEXP N0SEXP, SEXP threshSEXP, SEXP maxitSEXP, SEXP XFSEXP, SEXP yFSEXP, SEXP NFSEXP, SEXP threshPSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_APML0_cvNetLogC_try(XSEXP, ySEXP, alphaSEXP, lambdaSEXP, nlambdaSEXP, wbetaSEXP, wbetaiSEXP, OmegaSEXP, locSEXP, nadjSEXP, pSEXP, N0SEXP, threshSEXP, maxitSEXP, XFSEXP, yFSEXP, NFSEXP, threshPSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 
 // validate (ensure exported C++ functions exist before calling them)
 static int _APML0_RcppExport_validate(const char* sig) { 
@@ -683,17 +931,23 @@ static int _APML0_RcppExport_validate(const char* sig) {
         signatures.insert("List(*OmegaSC)(Eigen::SparseMatrix<double>&,Eigen::VectorXi&)");
         signatures.insert("double(*maxLambdaLmC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int)");
         signatures.insert("Eigen::VectorXd(*cvTrimLmC)(Eigen::VectorXd,int,int,Eigen::VectorXi,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
-        signatures.insert("List(*EnetLmC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,int,int,int,double,int,double)");
+        signatures.insert("List(*EnetLmC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,int,int,double,int,double)");
         signatures.insert("List(*cvEnetLmC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,int,int,double,int,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
-        signatures.insert("List(*NetLmC)(Eigen::MatrixXd&,Eigen::VectorXd&,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,int,double,int,double)");
+        signatures.insert("List(*NetLmC)(Eigen::MatrixXd&,Eigen::VectorXd&,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,double,int,double)");
         signatures.insert("List(*cvNetLmC)(Eigen::MatrixXd&,Eigen::VectorXd&,double,Eigen::VectorXd,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,double,int,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
         signatures.insert("double(*maxLambdaCoxC)(Eigen::MatrixXd,Eigen::VectorXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,double,Eigen::VectorXd,int,int)");
         signatures.insert("double(*pletaCm)(Eigen::VectorXd&,Eigen::VectorXd&,Eigen::VectorXi&,Eigen::VectorXi&,Eigen::VectorXi&,int&,int&,int&)");
         signatures.insert("Eigen::VectorXd(*cvTrimCoxC)(Eigen::VectorXd,int,int,Eigen::VectorXi,Eigen::MatrixXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,Eigen::MatrixXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int)");
-        signatures.insert("List(*EnetCoxC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,int,double,int,int)");
+        signatures.insert("List(*EnetCoxC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int)");
         signatures.insert("List(*cvEnetCoxC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int,Eigen::MatrixXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int)");
-        signatures.insert("List(*NetCoxC)(Eigen::MatrixXd&,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,int,double,int,int)");
+        signatures.insert("List(*NetCoxC)(Eigen::MatrixXd&,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int)");
         signatures.insert("List(*cvNetCoxC)(Eigen::MatrixXd&,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int,Eigen::MatrixXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int)");
+        signatures.insert("double(*maxLambdaLogC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int)");
+        signatures.insert("Eigen::VectorXd(*cvTrimLogC)(Eigen::VectorXd,int,int,Eigen::VectorXi,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
+        signatures.insert("List(*EnetLogC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::ArrayXd,Eigen::ArrayXd,int,int,double,int,double)");
+        signatures.insert("List(*cvEnetLogC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::ArrayXd,Eigen::ArrayXd,int,int,double,int,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
+        signatures.insert("List(*NetLogC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::ArrayXd,Eigen::ArrayXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,double,int,double)");
+        signatures.insert("List(*cvNetLogC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::ArrayXd,Eigen::ArrayXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,double,int,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -716,6 +970,12 @@ RcppExport SEXP _APML0_RcppExport_registerCCallable() {
     R_RegisterCCallable("APML0", "_APML0_cvEnetCoxC", (DL_FUNC)_APML0_cvEnetCoxC_try);
     R_RegisterCCallable("APML0", "_APML0_NetCoxC", (DL_FUNC)_APML0_NetCoxC_try);
     R_RegisterCCallable("APML0", "_APML0_cvNetCoxC", (DL_FUNC)_APML0_cvNetCoxC_try);
+    R_RegisterCCallable("APML0", "_APML0_maxLambdaLogC", (DL_FUNC)_APML0_maxLambdaLogC_try);
+    R_RegisterCCallable("APML0", "_APML0_cvTrimLogC", (DL_FUNC)_APML0_cvTrimLogC_try);
+    R_RegisterCCallable("APML0", "_APML0_EnetLogC", (DL_FUNC)_APML0_EnetLogC_try);
+    R_RegisterCCallable("APML0", "_APML0_cvEnetLogC", (DL_FUNC)_APML0_cvEnetLogC_try);
+    R_RegisterCCallable("APML0", "_APML0_NetLogC", (DL_FUNC)_APML0_NetLogC_try);
+    R_RegisterCCallable("APML0", "_APML0_cvNetLogC", (DL_FUNC)_APML0_cvNetLogC_try);
     R_RegisterCCallable("APML0", "_APML0_RcppExport_validate", (DL_FUNC)_APML0_RcppExport_validate);
     return R_NilValue;
 }
@@ -726,9 +986,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_APML0_OmegaSC", (DL_FUNC) &_APML0_OmegaSC, 2},
     {"_APML0_maxLambdaLmC", (DL_FUNC) &_APML0_maxLambdaLmC, 6},
     {"_APML0_cvTrimLmC", (DL_FUNC) &_APML0_cvTrimLmC, 8},
-    {"_APML0_EnetLmC", (DL_FUNC) &_APML0_EnetLmC, 13},
+    {"_APML0_EnetLmC", (DL_FUNC) &_APML0_EnetLmC, 12},
     {"_APML0_cvEnetLmC", (DL_FUNC) &_APML0_cvEnetLmC, 14},
-    {"_APML0_NetLmC", (DL_FUNC) &_APML0_NetLmC, 16},
+    {"_APML0_NetLmC", (DL_FUNC) &_APML0_NetLmC, 15},
     {"_APML0_cvNetLmC", (DL_FUNC) &_APML0_cvNetLmC, 17},
     {"_APML0_maxLambdaCoxC", (DL_FUNC) &_APML0_maxLambdaCoxC, 11},
     {"_APML0_pletaCm", (DL_FUNC) &_APML0_pletaCm, 8},
@@ -737,6 +997,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_APML0_cvEnetCoxC", (DL_FUNC) &_APML0_cvEnetCoxC, 22},
     {"_APML0_NetCoxC", (DL_FUNC) &_APML0_NetCoxC, 20},
     {"_APML0_cvNetCoxC", (DL_FUNC) &_APML0_cvNetCoxC, 25},
+    {"_APML0_maxLambdaLogC", (DL_FUNC) &_APML0_maxLambdaLogC, 6},
+    {"_APML0_cvTrimLogC", (DL_FUNC) &_APML0_cvTrimLogC, 8},
+    {"_APML0_EnetLogC", (DL_FUNC) &_APML0_EnetLogC, 13},
+    {"_APML0_cvEnetLogC", (DL_FUNC) &_APML0_cvEnetLogC, 15},
+    {"_APML0_NetLogC", (DL_FUNC) &_APML0_NetLogC, 16},
+    {"_APML0_cvNetLogC", (DL_FUNC) &_APML0_cvNetLogC, 18},
     {"_APML0_RcppExport_registerCCallable", (DL_FUNC) &_APML0_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };

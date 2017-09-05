@@ -5,24 +5,25 @@
 Fit a Model with Various Regularization Forms
 }
 \description{
-Fit linear and Cox models regularized with L0, lasso (L1), elastic-net (L1 and L2), or net (L1 and Laplacian) penalty, and their adaptive forms, such as adaptive lasso / elastic-net and net adjusting for signs of linked coefficients. It solves L0 penalty problem by simultaneously selecting regularization parameters and the number of non-zero coefficients. This augmented and penalized minimization method provides an approximation solution to the L0 penalty problem, but runs as fast as L1 regularization problem.
+Fit linear, logistic and Cox models regularized with L0, lasso (L1), elastic-net (L1 and L2), or net (L1 and Laplacian) penalty, and their adaptive forms, such as adaptive lasso / elastic-net and net adjusting for signs of linked coefficients. It solves L0 penalty problem by simultaneously selecting regularization parameters and the number of non-zero coefficients. This augmented and penalized minimization method provides an approximation solution to the L0 penalty problem, but runs as fast as L1 regularization problem.
 
 The package uses one-step coordinate descent algorithm and runs extremely fast by taking into account the sparsity structure of coefficients. It could deal with very high dimensional data.
 }
 \usage{
-APML0(x, y, family=c("gaussian", "cox"), penalty=c("Lasso","Enet", "Net"),
+APML0(x, y, family=c("gaussian", "binary", "cox"), penalty=c("Lasso","Enet", "Net"),
 Omega=NULL, alpha=1.0, lambda=NULL, nlambda=50, rlambda=NULL,
 wbeta=rep(1,ncol(x)), sgn=rep(1,ncol(x)), nfolds=1, foldid=NULL, inzero=TRUE,
-isd=FALSE, keep.beta=FALSE, ifast=TRUE, thresh=1e-7, maxit=1e+5)
+isd=FALSE, iysd=FALSE, keep.beta=FALSE, ifast=TRUE, thresh=1e-7, maxit=1e+5)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{input matrix. Each row is an observation vector.
 }
   \item{y}{response variable. For \code{family = "gaussian"},
-  \code{y} is a continuous vector. For \code{family = "cox"}, \code{y} is a two-column matrix with columns named `time' and `status'. `status' is a binary variable, with `1' indicating event, and `0' indicating right censored.
+  \code{y} is a continuous vector. For \code{family = "binary"},
+  \code{y} is a binary vector with 0 and 1. For \code{family = "cox"}, \code{y} is a two-column matrix with columns named `time' and `status'. `status' is a binary variable, with `1' indicating event, and `0' indicating right censored.
 }
-  \item{family}{type of outcome. Can be "gaussian" or "cox".
+  \item{family}{type of outcome. Can be "gaussian", "binary" or "cox".
 }
   \item{penalty}{penalty type. Can choose \code{"Net"}, \code{"Enet"} (elastic net) and \code{"Lasso"}. For \code{"Net"}, need to specify \code{Omega}; otherwise, \code{"Enet"} is performed. For \code{penalty = "Net"}, the penalty is defined as \deqn{\lambda*{\alpha*||\beta||_1+(1-\alpha)/2*(\beta^{T}L\beta)},}
 where \eqn{L} is a Laplacian matrix calculated from \code{Omega}.
@@ -48,6 +49,8 @@ where \eqn{L} is a Laplacian matrix calculated from \code{Omega}.
   \item{inzero}{logical flag for simultaneously selecting the number of non-zero coefficients with \code{lambda}. Default is \code{inzero = TRUE}.
 }
   \item{isd}{logical flag for outputting standardized coefficients. \code{x} is always standardized prior to fitting the model. Default is \code{isd = FALSE}, returning \eqn{\beta} on the original scale.
+}
+  \item{iysd}{logical flag for standardizing \code{y} prior to computation, for \code{family = "gaussian"}. The returning coefficients are always based the original \code{y} (unstandardized). Default is \code{isd = FALSE}.
 }
   \item{keep.beta}{logical flag for returning estimates for all \code{lambda} values. For \code{keep.beta = FALSE}, only return the estimate with the minimum cross-validation value.
 }
@@ -119,6 +122,21 @@ y=rnorm(N,xb)
 fiti=APML0(x,y,penalty="Lasso",nlambda=10) # Lasso
 fiti2=APML0(x,y,penalty="Lasso",nlambda=10,nfolds=10) # Lasso
 # attributes(fiti)
+
+
+
+###  Logistic model  ###
+set.seed(1213)
+N=100;p=30;p1=5
+x=matrix(rnorm(N*p),N,p)
+beta=rnorm(p1)
+xb=x[,1:p1]\%*\%beta
+y=rbinom(n=N, size=1, prob=1.0/(1.0+exp(-xb)))
+
+fiti=APML0(x,y,family="binary",penalty="Lasso",nlambda=10) # Lasso
+fiti2=APML0(x,y,family="binary",penalty="Lasso",nlambda=10,nfolds=10) # Lasso
+# attributes(fiti)
+
 
 
 ###  Cox model  ###

@@ -120,17 +120,17 @@ namespace APML0 {
         return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
     }
 
-    inline List EnetLmC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, int isd, int p, int N0, double thresh, int maxit, double thresh2) {
-        typedef SEXP(*Ptr_EnetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline List EnetLmC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, int p, int N0, double thresh, int maxit, double thresh2) {
+        typedef SEXP(*Ptr_EnetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_EnetLmC p_EnetLmC = NULL;
         if (p_EnetLmC == NULL) {
-            validateSignature("List(*EnetLmC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,int,int,int,double,int,double)");
+            validateSignature("List(*EnetLmC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,int,int,double,int,double)");
             p_EnetLmC = (Ptr_EnetLmC)R_GetCCallable("APML0", "_APML0_EnetLmC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_EnetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(isd)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(thresh2)));
+            rcpp_result_gen = p_EnetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(thresh2)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -158,17 +158,17 @@ namespace APML0 {
         return Rcpp::as<List >(rcpp_result_gen);
     }
 
-    inline List NetLmC(Eigen::MatrixXd& X, Eigen::VectorXd& y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int isd, int p, int N0, double thresh, int maxit, double thresh2) {
-        typedef SEXP(*Ptr_NetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline List NetLmC(Eigen::MatrixXd& X, Eigen::VectorXd& y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int p, int N0, double thresh, int maxit, double thresh2) {
+        typedef SEXP(*Ptr_NetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_NetLmC p_NetLmC = NULL;
         if (p_NetLmC == NULL) {
-            validateSignature("List(*NetLmC)(Eigen::MatrixXd&,Eigen::VectorXd&,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,int,double,int,double)");
+            validateSignature("List(*NetLmC)(Eigen::MatrixXd&,Eigen::VectorXd&,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,double,int,double)");
             p_NetLmC = (Ptr_NetLmC)R_GetCCallable("APML0", "_APML0_NetLmC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_NetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(isd)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(thresh2)));
+            rcpp_result_gen = p_NetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(thresh2)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -253,17 +253,17 @@ namespace APML0 {
         return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
     }
 
-    inline List EnetCoxC(Eigen::MatrixXd X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int isd, int p, int N0, double thresh, int maxit, int ifast) {
+    inline List EnetCoxC(Eigen::MatrixXd X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast) {
         typedef SEXP(*Ptr_EnetCoxC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_EnetCoxC p_EnetCoxC = NULL;
         if (p_EnetCoxC == NULL) {
-            validateSignature("List(*EnetCoxC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,int,double,int,int)");
+            validateSignature("List(*EnetCoxC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int)");
             p_EnetCoxC = (Ptr_EnetCoxC)R_GetCCallable("APML0", "_APML0_EnetCoxC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_EnetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(isd)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)));
+            rcpp_result_gen = p_EnetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -291,17 +291,17 @@ namespace APML0 {
         return Rcpp::as<List >(rcpp_result_gen);
     }
 
-    inline List NetCoxC(Eigen::MatrixXd& X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int isd, int p, int N0, double thresh, int maxit, int ifast) {
+    inline List NetCoxC(Eigen::MatrixXd& X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast) {
         typedef SEXP(*Ptr_NetCoxC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_NetCoxC p_NetCoxC = NULL;
         if (p_NetCoxC == NULL) {
-            validateSignature("List(*NetCoxC)(Eigen::MatrixXd&,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,int,double,int,int)");
+            validateSignature("List(*NetCoxC)(Eigen::MatrixXd&,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int)");
             p_NetCoxC = (Ptr_NetCoxC)R_GetCCallable("APML0", "_APML0_NetCoxC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_NetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(isd)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)));
+            rcpp_result_gen = p_NetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -321,6 +321,120 @@ namespace APML0 {
         {
             RNGScope RCPP_rngScope_gen;
             rcpp_result_gen = p_cvNetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(neventF)), Shield<SEXP>(Rcpp::wrap(nevent1F)), Shield<SEXP>(Rcpp::wrap(loc1F)), Shield<SEXP>(Rcpp::wrap(nF)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<List >(rcpp_result_gen);
+    }
+
+    inline double maxLambdaLogC(Eigen::MatrixXd X, Eigen::VectorXd Z, double alpha, Eigen::VectorXd wbeta, int N0, int p) {
+        typedef SEXP(*Ptr_maxLambdaLogC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_maxLambdaLogC p_maxLambdaLogC = NULL;
+        if (p_maxLambdaLogC == NULL) {
+            validateSignature("double(*maxLambdaLogC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int)");
+            p_maxLambdaLogC = (Ptr_maxLambdaLogC)R_GetCCallable("APML0", "_APML0_maxLambdaLogC");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_maxLambdaLogC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(Z)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(p)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<double >(rcpp_result_gen);
+    }
+
+    inline Eigen::VectorXd cvTrimLogC(Eigen::VectorXd beta, int nn, int nn2, Eigen::VectorXi loco, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double threshP) {
+        typedef SEXP(*Ptr_cvTrimLogC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_cvTrimLogC p_cvTrimLogC = NULL;
+        if (p_cvTrimLogC == NULL) {
+            validateSignature("Eigen::VectorXd(*cvTrimLogC)(Eigen::VectorXd,int,int,Eigen::VectorXi,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
+            p_cvTrimLogC = (Ptr_cvTrimLogC)R_GetCCallable("APML0", "_APML0_cvTrimLogC");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_cvTrimLogC(Shield<SEXP>(Rcpp::wrap(beta)), Shield<SEXP>(Rcpp::wrap(nn)), Shield<SEXP>(Rcpp::wrap(nn2)), Shield<SEXP>(Rcpp::wrap(loco)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(threshP)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
+    }
+
+    inline List EnetLogC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::ArrayXd wbeta, Eigen::ArrayXd wbetai, int p, int N0, double thresh, int maxit, double threshP) {
+        typedef SEXP(*Ptr_EnetLogC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_EnetLogC p_EnetLogC = NULL;
+        if (p_EnetLogC == NULL) {
+            validateSignature("List(*EnetLogC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::ArrayXd,Eigen::ArrayXd,int,int,double,int,double)");
+            p_EnetLogC = (Ptr_EnetLogC)R_GetCCallable("APML0", "_APML0_EnetLogC");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_EnetLogC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbetai)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(threshP)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<List >(rcpp_result_gen);
+    }
+
+    inline List cvEnetLogC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::ArrayXd wbeta, Eigen::ArrayXd wbetai, int p, int N0, double thresh, int maxit, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double threshP) {
+        typedef SEXP(*Ptr_cvEnetLogC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_cvEnetLogC p_cvEnetLogC = NULL;
+        if (p_cvEnetLogC == NULL) {
+            validateSignature("List(*cvEnetLogC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::ArrayXd,Eigen::ArrayXd,int,int,double,int,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
+            p_cvEnetLogC = (Ptr_cvEnetLogC)R_GetCCallable("APML0", "_APML0_cvEnetLogC");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_cvEnetLogC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbetai)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(threshP)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<List >(rcpp_result_gen);
+    }
+
+    inline List NetLogC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::ArrayXd wbeta, Eigen::ArrayXd wbetai, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int p, int N0, double thresh, int maxit, double threshP) {
+        typedef SEXP(*Ptr_NetLogC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_NetLogC p_NetLogC = NULL;
+        if (p_NetLogC == NULL) {
+            validateSignature("List(*NetLogC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::ArrayXd,Eigen::ArrayXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,double,int,double)");
+            p_NetLogC = (Ptr_NetLogC)R_GetCCallable("APML0", "_APML0_NetLogC");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_NetLogC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbetai)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(threshP)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<List >(rcpp_result_gen);
+    }
+
+    inline List cvNetLogC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::ArrayXd wbeta, Eigen::ArrayXd wbetai, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int p, int N0, double thresh, int maxit, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double threshP) {
+        typedef SEXP(*Ptr_cvNetLogC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_cvNetLogC p_cvNetLogC = NULL;
+        if (p_cvNetLogC == NULL) {
+            validateSignature("List(*cvNetLogC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::ArrayXd,Eigen::ArrayXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,double,int,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
+            p_cvNetLogC = (Ptr_cvNetLogC)R_GetCCallable("APML0", "_APML0_cvNetLogC");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_cvNetLogC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbetai)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(threshP)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
