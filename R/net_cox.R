@@ -64,7 +64,7 @@ CoxL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
   nlambdai=out$nlambda
   if (nlambdai==0)
     return(NULL)
-  lambdai=lambda[1:nlambdai]
+  lambdai=out$lambda[1:nlambdai]
   
   out$Beta=Matrix(out$Beta[, 1:nlambdai], sparse=TRUE) 
   out$BetaSTD=Matrix(out$BetaSTD[, 1:nlambdai], sparse=TRUE) 

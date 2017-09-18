@@ -82,18 +82,14 @@ An object with S3 class \code{"APML0"}.
   \item{adaptive}{logical flags for adaptive version (see above).}
   \item{flag}{convergence flag (for internal debugging). \code{flag = 0} means converged.}
 }
-\references{Boyd, S., Parikh, N., Chu, E., Peleato, B., & Eckstein, J. (2011).
+\references{Li, X., Xie, S., Zeng, D., Wang, Y. (2017).
+\emph{Efficient Method to Optimally Identify Important Biomarkers for Disease Outcomes with High-dimensional Data. Statistics in Medicine, accepted.}\cr
+Boyd, S., Parikh, N., Chu, E., Peleato, B., & Eckstein, J. (2011).
   \emph{Distributed optimization and statistical learning via the alternating direction method of multipliers. Foundations and Trends in Machine Learning, 3(1), 1-122.}\cr
   \url{http://dl.acm.org/citation.cfm?id=2185816}\cr
   Friedman, J., Hastie, T. and Tibshirani, R. (2010).
   \emph{Regularization paths for generalized linear models via coordinate descent, Journal of Statistical Software, Vol. 33(1), 1.}\cr
   \url{http://www.jstatsoft.org/v33/i01/}\cr
-  Li, C., and Li, H. (2010).
-  \emph{Variable selection and regression analysis for graph-structured covariates with an application to genomics. The annals of applied statistics, 4(3), 1498.}\cr
-  \url{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3423227/}\cr
-   Sun, H., Lin, W., Feng, R., and Li, H. (2014)
-  \emph{Network-regularized high-dimensional cox regression for analysis of genomic data, Statistica Sinica.}\cr
-  \url{http://www3.stat.sinica.edu.tw/statistica/j24n3/j24n319/j24n319.html}\cr
 }
 
 \author{
