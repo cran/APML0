@@ -10,7 +10,7 @@ Fit linear, logistic and Cox models regularized with L0, lasso (L1), elastic-net
 The package uses one-step coordinate descent algorithm and runs extremely fast by taking into account the sparsity structure of coefficients. It could deal with very high dimensional data.
 }
 \usage{
-APML0(x, y, family=c("gaussian", "binary", "cox"), penalty=c("Lasso","Enet", "Net"),
+APML0(x, y, family=c("gaussian", "binomial", "cox"), penalty=c("Lasso","Enet", "Net"),
 Omega=NULL, alpha=1.0, lambda=NULL, nlambda=50, rlambda=NULL,
 wbeta=rep(1,ncol(x)), sgn=rep(1,ncol(x)), nfolds=1, foldid=NULL, inzero=TRUE,
 isd=FALSE, iysd=FALSE, keep.beta=FALSE, ifast=TRUE, thresh=1e-7, maxit=1e+5)
@@ -20,10 +20,10 @@ isd=FALSE, iysd=FALSE, keep.beta=FALSE, ifast=TRUE, thresh=1e-7, maxit=1e+5)
   \item{x}{input matrix. Each row is an observation vector.
 }
   \item{y}{response variable. For \code{family = "gaussian"},
-  \code{y} is a continuous vector. For \code{family = "binary"},
+  \code{y} is a continuous vector. For \code{family = "binomial"},
   \code{y} is a binary vector with 0 and 1. For \code{family = "cox"}, \code{y} is a two-column matrix with columns named `time' and `status'. `status' is a binary variable, with `1' indicating event, and `0' indicating right censored.
 }
-  \item{family}{type of outcome. Can be "gaussian", "binary" or "cox".
+  \item{family}{type of outcome. Can be "gaussian", "binomial" or "cox".
 }
   \item{penalty}{penalty type. Can choose \code{"Net"}, \code{"Enet"} (elastic net) and \code{"Lasso"}. For \code{"Net"}, need to specify \code{Omega}; otherwise, \code{"Enet"} is performed. For \code{penalty = "Net"}, the penalty is defined as \deqn{\lambda*{\alpha*||\beta||_1+(1-\alpha)/2*(\beta^{T}L\beta)},}
 where \eqn{L} is a Laplacian matrix calculated from \code{Omega}.
@@ -70,8 +70,8 @@ where \eqn{L} is a Laplacian matrix calculated from \code{Omega}.
 }
 \value{
 An object with S3 class \code{"APML0"}.
-  \item{Beta}{a sparse Matrix of coefficients, stored in class "dgCMatrix".}
-  \item{Beta0}{coefficients after additionally tuning the number of non-zeros, for \code{inzero = TRUE}.}
+  \item{Beta}{a sparse Matrix of coefficients, stored in class "dgCMatrix". For \code{family = "binomial"}, the first coefficient is the intercept.}
+  \item{Beta0}{coefficients after additionally tuning the number of non-zeros, for \code{inzero = TRUE}. For \code{family = "binomial"}, the first coefficient is the intercept.}
   \item{fit}{a data.frame containing \code{lambda} and the number of non-zero coefficients \code{nzero}. With cross-validation, additional results are reported, such as average cross-validation partial likelihood \code{cvm} and its standard error \code{cvse}, and \code{index} with `*' indicating the minimum \code{cvm}. For \code{family = "gaussian"}, \code{rsq} is also reported.}
   \item{fit0}{a data.frame containing \code{lambda}, \code{cvm} and \code{nzero} based on \code{inzero = TRUE}. \code{cvm} in \code{fit0} may be different from \code{cvm} in \code{fit}, because the constaint on the number of non-zeros is imposed in the cross-validation. The maximum number of non-zeros is based on the full dataset not the one used in the cross-validation.}
 
@@ -129,8 +129,8 @@ beta=rnorm(p1)
 xb=x[,1:p1]\%*\%beta
 y=rbinom(n=N, size=1, prob=1.0/(1.0+exp(-xb)))
 
-fiti=APML0(x,y,family="binary",penalty="Lasso",nlambda=10) # Lasso
-fiti2=APML0(x,y,family="binary",penalty="Lasso",nlambda=10,nfolds=10) # Lasso
+fiti=APML0(x,y,family="binomial",penalty="Lasso",nlambda=10) # Lasso
+fiti2=APML0(x,y,family="binomial",penalty="Lasso",nlambda=10,nfolds=10) # Lasso
 # attributes(fiti)
 
 

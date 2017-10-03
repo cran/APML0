@@ -13,8 +13,8 @@ The package uses one-step coordinate descent algorithm and runs extremely fast b
 \tabular{ll}{
 Package: \tab APML0\cr
 Type: \tab Package\cr
-Version: \tab 0.4\cr
-Date: \tab 2017-09-18\cr
+Version: \tab 0.5\cr
+Date: \tab 2017-10-01\cr
 License: \tab GPL (>= 2)\cr
 }
 Functions:
@@ -25,7 +25,7 @@ Xiang Li, Shanghong Xie, Donglin Zeng and Yuanjia Wang\cr
 Maintainer: Xiang Li <xli256@its.jnj.com>
 }
 \references{Li, X., Xie, S., Zeng, D., Wang, Y. (2017).
-\emph{Efficient Method to Optimally Identify Important Biomarkers for Disease Outcomes with High-dimensional Data. Statistics in Medicine, accepted.}\cr
+\emph{Efficient Method to Optimally Identify Important Biomarkers for Disease Outcomes with High-dimensional Data. Statistics in Medicine, in press.}\cr
 Boyd, S., Parikh, N., Chu, E., Peleato, B., & Eckstein, J. (2011).
   \emph{Distributed optimization and statistical learning via the alternating direction method of multipliers. Foundations and Trends in Machine Learning, 3(1), 1-122.}\cr
   \url{http://dl.acm.org/citation.cfm?id=2185816}\cr
@@ -34,6 +34,7 @@ Boyd, S., Parikh, N., Chu, E., Peleato, B., & Eckstein, J. (2011).
   \url{http://www.jstatsoft.org/v33/i01/}\cr
 }
 
+\keyword{False positive control}
 \keyword{Number of non-zeros}
 \keyword{Regularization}
 \keyword{Package}
@@ -60,8 +61,8 @@ beta=rnorm(p1)
 xb=x[,1:p1]\%*\%beta
 y=rbinom(n=N, size=1, prob=1.0/(1.0+exp(-xb)))
 
-fiti=APML0(x,y,family="binary",penalty="Lasso",nlambda=10) # Lasso
-fiti2=APML0(x,y,family="binary",penalty="Lasso",nlambda=10,nfolds=10) # Lasso
+fiti=APML0(x,y,family="binomial",penalty="Lasso",nlambda=10) # Lasso
+fiti2=APML0(x,y,family="binomial",penalty="Lasso",nlambda=10,nfolds=10) # Lasso
 # attributes(fiti)
 
 
