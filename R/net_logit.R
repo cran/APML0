@@ -129,7 +129,7 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
         
         indexi=which(apply(x1i,2,sd)==0)[-1]
         if (length(indexi)>0) {
-          x1i=x1i[,-indexi]; x1j=x1i[,-indexi]; p1i=p1i-length(indexi)
+          x1i=x1i[,-indexi]; x1j=x1j[,-indexi]; p1i=p1i-length(indexi)
           wbeta1i=wbeta1i[-indexi]; wbetaii=wbetaii[-indexi]
         }
         
