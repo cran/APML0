@@ -51,22 +51,22 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
     }
     rm(Omega)
   }
-  
-  
+
+
   #####  Run  #####
   x1=cbind(1.0,x); storage.mode(y)="double"; p1=p+1;
   wbeta1=c(0.0, wbeta); wbetai=rep(1.0,p1); wbetai[1]=0.0
-  
+
   ##
   x1i=x1; p1i=p1
   wbeta1i=wbeta1; wbetaii=wbetai
-  
+
   indexi=which(apply(x1i,2,sd)==0)[-1]
   if (length(indexi)>0) {
     x1i=x1i[,-indexi]; p1i=p1i-length(indexi)
     wbeta1i=wbeta1i[-indexi]; wbetaii=wbetaii[-indexi]
   }
-  
+
   out=switch(penalty,
              "Net"=NetLogC(x1i, y, alpha, lambda, nlambda, ilambda, wbeta1i, wbetaii, W$Omega, W$loc, W$nadj, p1i, N0, thresh, maxit, threshP),
              EnetLogC(x1i, y, alpha, lambda, nlambda, ilambda, wbeta1i, wbetaii, p1i, N0, thresh, maxit, threshP)
@@ -75,17 +75,17 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
   if (nlambdai==0)
     return(NULL)
   lambdai=out$lambda[1:nlambdai]
-  
+
   if (length(indexi)>0) {
     betai=matrix(0,nrow=p1,ncol=nlambdai)
     betai[-indexi,]=out$Beta
     out$Beta=betai
-    
+
     betai=matrix(0,nrow=p1,ncol=nlambdai)
     betai[-indexi,]=out$BetaSTD
     out$BetaSTD=betai
   }
-  
+
   out$Beta=Matrix(out$Beta[, 1:nlambdai], sparse=TRUE)
   out$BetaSTD=Matrix(out$BetaSTD[, 1:nlambdai], sparse=TRUE)
   out$nzero=apply(out$Beta!=0, 2, sum)
@@ -122,32 +122,35 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
     outi=list(); cvRSS=matrix(NA, nrow=nfolds, ncol=nlambdai); i=3
     for (i in 1:nfolds) {
       temid=(foldid==i)
-      
+
       if (any(y[!temid]==0) & any(y[!temid]==1)) {
-        x1i=x1[!temid, ]; x1j=x1[temid, ]; p1i=p1
+        # x1i=x1[!temid, ]; x1j=x1[temid, ]; p1i=p1
+        x1i=matrix(x1[!temid, ],nrow=N0i[i]); x1j=matrix(x1[temid, ],nrow=Nf[i]); p1i=p1
+
         wbeta1i=wbeta1; wbetaii=wbetai
-        
+
         indexi=which(apply(x1i,2,sd)==0)[-1]
         if (length(indexi)>0) {
-          x1i=x1i[,-indexi]; x1j=x1j[,-indexi]; p1i=p1i-length(indexi)
+          x1i=matrix(x1i[,-indexi],nrow=N0i[i]); x1j=matrix(x1j[,-indexi],nrow=Nf[i])
+          p1i=p1i-length(indexi)
           wbeta1i=wbeta1i[-indexi]; wbetaii=wbetaii[-indexi]
         }
-        
+
         outi[[i]]=switch(penalty,
                          "Net"=cvNetLogC(x1i, y[!temid], alpha, lambdai, nlambdai, wbeta1i, wbetaii, W$Omega, W$loc, W$nadj, p1i, N0i[i],thresh, maxit, x1j, y[temid], Nf[i], threshP),
                          cvEnetLogC(x1i, y[!temid], alpha, lambdai, nlambdai, wbeta1i, wbetaii, p1i, N0i[i],thresh, maxit, x1j, y[temid], Nf[i], threshP)
         )
-        
+
         if (length(indexi)>0) {
           betai=matrix(0,nrow=p1,ncol=outi[[i]]$nlambda)
           betai[-indexi,]=outi[[i]]$Beta
           outi[[i]]$Beta=betai
-          
+
           betai=matrix(0,nrow=p1,ncol=outi[[i]]$nlambda)
           betai[-indexi,]=outi[[i]]$BetaSTD
           outi[[i]]$BetaSTD=betai
         }
-        
+
         cvRSS[i, 1:outi[[i]]$nlambda]=2*(0-outi[[i]]$LLF)*Nf[i] ## for ith fold
       } else {
         outi[[i]]=list()
@@ -199,7 +202,9 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
 
         temo=data.frame(temo[which(temo<=numj)], which(temo<=numj))
         temo=temo[order(temo[, 1]), ]
-        cvRSS[i, ]=cvTrimLogC(Betaj[temo[, 2]], numj, numi2, temo[, 2]-1, x1[temid,], y[temid], Nf[i], threshP)
+
+        x1j=matrix(x1[temid, ],nrow=Nf[i])
+        cvRSS[i, ]=cvTrimLogC(Betaj[temo[, 2]], numj, numi2, temo[, 2]-1, x1j, y[temid], Nf[i], threshP)
       }
 
       cvraw=cvRSS/weighti; nfoldi=apply(!is.na(cvraw), 2, sum); #rm(cvRSS) #
@@ -230,7 +235,9 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
 
               temo=data.frame(temo[which(temo<=numj)], which(temo<=numj))
               temo=temo[order(temo[, 1]), ]
-              cvRSS[i, ]=cvTrimLogC(Betaj[temo[, 2]], numj, numi2, temo[, 2]-1, x1[temid,], y[temid], Nf[i], threshP)
+
+              x1j=matrix(x1[temid, ],nrow=Nf[i])
+              cvRSS[i, ]=cvTrimLogC(Betaj[temo[, 2]], numj, numi2, temo[, 2]-1, x1j, y[temid], Nf[i], threshP)
             }
 
             cvraw=cvRSS/weighti;nfoldi=apply(!is.na(cvraw), 2, sum); #rm(cvRSS)
