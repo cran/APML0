@@ -5,8 +5,9 @@
 ###############################
 
 LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NULL, nfolds=1, foldid=NULL, inzero=TRUE, wbeta=rep(1,ncol(x)), sgn=rep(1,ncol(x)), isd=FALSE, iysd=FALSE, keep.beta=FALSE, thresh=1e-6, maxit=1e+5) {
-  # alpha=alphai; rlambda=NULL; inzero=TRUE; isd=FALSE; keep.beta=FALSE; thresh=1e-5; maxit=1e+5; lambda=lambdai
-  # Omega=cor(x);alpha=alphai; rlambda=NULL; inzero=TRUE; isd=FALSE; keep.beta=FALSE; thresh=1e-5; maxit=1e+5; lambda=NULL; nlambda=nlambdai; sgn=rep(1,ncol(x)); wbeta=rep(1,ncol(x))
+  # alpha=1; lambda=NULL; rlambda=NULL; inzero=TRUE; isd=FALSE; keep.beta=FALSE; thresh=1e-5; maxit=1e+5;
+  # Omega=NULL; rlambda=NULL; inzero=TRUE; isd=FALSE; keep.beta=FALSE; thresh=1e-5; maxit=1e+5; lambda=NULL; nlambda=10; sgn=rep(1,ncol(x)); wbeta=rep(1,ncol(x))
+  # nfolds=10; foldid=NULL
 
   N0=nrow(x); p=ncol(x)
 
@@ -32,7 +33,7 @@ LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NUL
   }
 
 
-  if (is.null(Omega)) {
+  if (is.null(Omega) | p==1) {
     penalty=ifelse(alpha==1, "Lasso", "Enet")
     adaptive=ifelse(any(wbeta!=1), TRUE, FALSE)
   } else {
@@ -70,8 +71,8 @@ LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NUL
     return(NULL)
   lambdai=out$lambda[1:nlambdai]
 
-  out$Beta=Matrix(out$Beta[, 1:nlambdai]*sdy, sparse=TRUE)
-  out$BetaSTD=Matrix(out$BetaSTD[, 1:nlambdai]*sdy, sparse=TRUE)
+  out$Beta=Matrix(out$Beta[, 1:nlambdai,drop=F]*sdy, sparse=TRUE)
+  out$BetaSTD=Matrix(out$BetaSTD[, 1:nlambdai,drop=F]*sdy, sparse=TRUE)
   out$nzero=apply(out$Beta!=0, 2, sum)
   out$flag=out$flag[1:nlambdai]
   out$rsq=out$rsq[1:nlambdai]
@@ -106,17 +107,15 @@ LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NUL
     for (i in 1:nfolds) {
       temid=(foldid==i)
 
-      x1j=matrix(x[temid, ],nrow=Nf[i])
       outi[[i]]=switch(penalty,
-                       "Net"=cvNetLmC(x[!temid, ], y[!temid], alpha, lambdai, nlambdai, wbeta, W$Omega, W$loc, W$nadj, N0i[i],  p,  thresh, maxit, x1j, y[temid], Nf[i], 1e-5),
-                       cvEnetLmC(x[!temid, ], y[!temid], alpha, lambdai, nlambdai, wbeta, N0i[i],p, thresh, maxit, x1j, y[temid], Nf[i], 1e-5)
+                       "Net"=cvNetLmC(x[!temid, ,drop=F], y[!temid], alpha, lambdai, nlambdai, wbeta, W$Omega, W$loc, W$nadj, N0i[i],  p,  thresh, maxit, x[temid, ,drop=F], y[temid], Nf[i], 1e-5),
+                       cvEnetLmC(x[!temid, ,drop=F], y[!temid], alpha, lambdai, nlambdai, wbeta, N0i[i],p, thresh, maxit, x[temid, ,drop=F], y[temid], Nf[i], 1e-5)
       )
 
       cvRSS[i, 1:outi[[i]]$nlambda]=outi[[i]]$RSSp[1:outi[[i]]$nlambda] ## for ith fold
     }
 
-
-    cvRSS=matrix(cvRSS[, 1:nlambdai], ncol=nlambdai)
+    cvRSS=cvRSS[, 1:nlambdai,drop=F]
     cvraw=cvRSS/weighti; nfoldi=apply(!is.na(cvraw), 2, sum); #rm(cvRSS) #
     cvm=apply(cvraw, 2, weighted.mean, w=weighti, na.rm=TRUE)
     cvse=sqrt(apply(sweep(cvraw, 2, cvm, "-")^2, 2, weighted.mean, w=weighti, na.rm=TRUE)/(nfoldi-1))
@@ -143,11 +142,12 @@ LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NUL
     il0=indexi; cvm=list(); cv.min=rep(NA, nlambdai)
     repeat {
       numi=out$nzero[il0]
-      Betai=sapply(outi, function(x){x$Beta[, il0]})
-      BetaSTDi=sapply(outi, function(x){x$BetaSTD[, il0]})
+      Betai=matrix(sapply(outi, function(x){x$Beta[, il0,drop=F]}), nrow=p)
+      BetaSTDi=matrix(sapply(outi, function(x){x$BetaSTD[, il0,drop=F]}), nrow=p)
 
       Betao=apply(Betai!=0, 2, sum)
       numi2=min(max(Betao), numi)
+      #numi2=pmax(min(max(Betao), numi),1)
 
       a0i=sapply(outi, function(x){x$a0S[il0]})
 
@@ -157,7 +157,7 @@ LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NUL
           numj=min(Betao[i], numi); temid=foldid==i
           Betaj=Betai[, i]; BetaSTDj=BetaSTDi[, i]
 
-          x1j=matrix(x[temid, ],nrow=Nf[i])
+          x1j=x[temid, ,drop=F]
           if (numj==0) {
             cvRSS[i, ]=cvTrimLmC(c(0.0, 0.0), numj, numi2, c(0, 0), x1j, y[temid], Nf[i], a0i[i])
           } else {
@@ -170,14 +170,23 @@ LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NUL
             temo=temo[order(temo[, 1]), ]
             cvRSS[i, ]=cvTrimLmC(Betaj[temo[, 2]], numj, numi2, temo[, 2]-1, x1j, y[temid], Nf[i], a0i[i])
           }
-
         }
+
+        # cvRSSi=matrix(NA, nrow=nfolds, ncol=1)
+        # for (i in 1:nfolds) {
+        #   temid=foldid==i
+        #   x1j=x[temid, ,drop=F]
+        #   cvRSSi[i, ]=cvTrimLmC(c(0.0, 0.0), 0, 0, c(0, 0), x1j, y[temid], Nf[i], a0i[i])
+        # }
+        #
+        # cvRSS=cbind(cvRSSi, cvRSS)
+
       } else {
         cvRSS=matrix(NA, nrow=nfolds, ncol=1)
         for (i in 1:nfolds) {
           temid=foldid==i
 
-          x1j=matrix(x[temid, ],nrow=Nf[i])
+          x1j=x[temid, ,drop=F]
           cvRSS[i, ]=cvTrimLmC(c(0.0, 0.0), 0, 0, c(0, 0), x1j, y[temid], Nf[i], a0i[i])
         }
       }
@@ -197,11 +206,12 @@ LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NUL
         if (il1[j]>=1 & il1[j]<=nlambdai) {
           if (is.na(cv.min[il1[j]])) {
             numi=out$nzero[il1[j]]
-            Betai=sapply(outi, function(x){x$Beta[, il1[j]]})
-            BetaSTDi=sapply(outi, function(x){x$BetaSTD[, il1[j]]})
+            Betai=matrix(sapply(outi, function(x){x$Beta[, il1[j],drop=F]}), nrow=p)
+            BetaSTDi=matrix(sapply(outi, function(x){x$BetaSTD[, il1[j],drop=F]}), nrow=p)
 
             Betao=apply(Betai!=0, 2, sum)
             numi2=min(max(Betao), numi)
+            # numi2=pmax(min(max(Betao), numi),1)
 
             if (numi2>0) {
               cvRSS=matrix(NA, nrow=nfolds, ncol=numi2)
@@ -209,7 +219,7 @@ LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NUL
                 numj=min(Betao[i], numi); temid=foldid==i
                 Betaj=Betai[, i]; BetaSTDj=BetaSTDi[, i]
 
-                x1j=matrix(x[temid, ],nrow=Nf[i])
+                x1j=x[temid, ,drop=F]
                 if (numj==0) {
                   cvRSS[i, ]=cvTrimLmC(c(0.0, 0.0), numj, numi2, c(0, 0), x1j, y[temid], Nf[i], a0i[i])
                 } else {
@@ -227,7 +237,7 @@ LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NUL
               for(i in 1:nfolds) {
                 temid=foldid==i
 
-                x1j=matrix(x[temid, ],nrow=Nf[i])
+                x1j=x[temid, ,drop=F]
                 cvRSS[i, ]=cvTrimLmC(c(0.0, 0.0), 0, 0, c(0, 0), x1j, y[temid], Nf[i], a0i[i])
               }
             }
@@ -247,8 +257,8 @@ LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NUL
           break
         }
       }
-      if (il1[j]==1 | il1[j]==nlambdai)
-        break
+      # if (il1[j]==1 | il1[j]==nlambdai)
+      #   break
       if (il0==which.min(cv.min)) {
         break
       } else {
@@ -273,7 +283,7 @@ LmL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NUL
     Beta0[abs(Beta0j)<=sort(abs(Beta0j),TRUE)[cuti+1]]=0
     BetaSTD0[abs(Beta0j)<=sort(abs(Beta0j),TRUE)[cuti+1]]=0
 
-    temCV0=data.frame(lambda=lambdai[index0],cvm=cv.min[index0],nzero=cuti)
+    temCV0=data.frame(lambda=lambdai[index0],cvm=cv.min[index0],nzero=sum(Beta0!=0))
 
     if (!keep.beta) {
 

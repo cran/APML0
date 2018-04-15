@@ -86,7 +86,7 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
     out$BetaSTD=betai
   }
 
-  out$Beta=Matrix(out$Beta[, 1:nlambdai], sparse=TRUE)
+  out$Beta=Matrix(out$Beta[, 1:nlambdai,drop=F], sparse=TRUE)
   out$BetaSTD=Matrix(out$BetaSTD[, 1:nlambdai], sparse=TRUE)
   out$nzero=apply(out$Beta!=0, 2, sum)
   out$flag=out$flag[1:nlambdai]
@@ -125,13 +125,14 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
 
       if (any(y[!temid]==0) & any(y[!temid]==1)) {
         # x1i=x1[!temid, ]; x1j=x1[temid, ]; p1i=p1
-        x1i=matrix(x1[!temid, ],nrow=N0i[i]); x1j=matrix(x1[temid, ],nrow=Nf[i]); p1i=p1
+        x1i=x1[!temid, ,drop=F]; x1j=x1[temid, ,drop=F]; p1i=p1
 
         wbeta1i=wbeta1; wbetaii=wbetai
 
         indexi=which(apply(x1i,2,sd)==0)[-1]
         if (length(indexi)>0) {
-          x1i=matrix(x1i[,-indexi],nrow=N0i[i]); x1j=matrix(x1j[,-indexi],nrow=Nf[i])
+          # x1i=matrix(x1i[,-indexi],nrow=N0i[i]); x1j=matrix(x1j[,-indexi],nrow=Nf[i])
+          x1i=x1i[,-indexi,drop=F]; x1j=x1j[,-indexi,drop=F]
           p1i=p1i-length(indexi)
           wbeta1i=wbeta1i[-indexi]; wbetaii=wbetaii[-indexi]
         }
@@ -159,7 +160,7 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
       }
     }
 
-    cvRSS=matrix(cvRSS[, 1:nlambdai], ncol=nlambdai)
+    cvRSS=cvRSS[, 1:nlambdai,drop=F]
     cvraw=cvRSS/weighti; nfoldi=apply(!is.na(cvraw), 2, sum); #rm(cvRSS) #
     cvm=apply(cvraw, 2, weighted.mean, w=weighti, na.rm=TRUE)
     cvse=sqrt(apply(sweep(cvraw, 2, cvm, "-")^2, 2, weighted.mean, w=weighti, na.rm=TRUE)/(nfoldi-1))
@@ -185,8 +186,8 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
     il0=indexi; cvm=list(); cv.min=rep(NA, nlambdai)
     repeat {
       numi=out$nzero[il0]
-      Betai=sapply(outi, function(x){x$Beta[, il0]})
-      BetaSTDi=sapply(outi, function(x){x$BetaSTD[, il0]})
+      Betai=matrix(sapply(outi, function(x){x$Beta[, il0,drop=F]}), nrow=p1)
+      BetaSTDi=matrix(sapply(outi, function(x){x$BetaSTD[, il0,drop=F]}), nrow=p1)
 
       Betao=apply(Betai!=0, 2, sum)
       numi2=pmax(min(max(Betao), numi),1)
@@ -203,7 +204,7 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
         temo=data.frame(temo[which(temo<=numj)], which(temo<=numj))
         temo=temo[order(temo[, 1]), ]
 
-        x1j=matrix(x1[temid, ],nrow=Nf[i])
+        x1j=x1[temid, ,drop=F]
         cvRSS[i, ]=cvTrimLogC(Betaj[temo[, 2]], numj, numi2, temo[, 2]-1, x1j, y[temid], Nf[i], threshP)
       }
 
@@ -218,8 +219,8 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
         if (il1[j]>=1 & il1[j]<=nlambdai) {
           if (is.na(cv.min[il1[j]])) {
             numi=out$nzero[il1[j]]
-            Betai=sapply(outi, function(x){x$Beta[, il1[j]]})
-            BetaSTDi=sapply(outi, function(x){x$BetaSTD[, il1[j]]})
+            Betai=matrix(sapply(outi, function(x){x$Beta[, il1[j],drop=F]}), nrow=p1)
+            BetaSTDi=matrix(sapply(outi, function(x){x$BetaSTD[, il1[j],drop=F]}), nrow=p1)
 
             Betao=apply(Betai!=0, 2, sum)
             numi2=pmax(min(max(Betao), numi),1)
@@ -236,7 +237,7 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
               temo=data.frame(temo[which(temo<=numj)], which(temo<=numj))
               temo=temo[order(temo[, 1]), ]
 
-              x1j=matrix(x1[temid, ],nrow=Nf[i])
+              x1j=x1[temid, ,drop=F]
               cvRSS[i, ]=cvTrimLogC(Betaj[temo[, 2]], numj, numi2, temo[, 2]-1, x1j, y[temid], Nf[i], threshP)
             }
 
@@ -250,8 +251,8 @@ LogL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
           break
         }
       }
-      if (il1[j]==1 | il1[j]==nlambdai)
-        break
+      # if (il1[j]==1 | il1[j]==nlambdai)
+      #   break
       if (il0==which.min(cv.min)) {
         break
       } else {

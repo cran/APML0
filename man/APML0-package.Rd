@@ -13,8 +13,8 @@ The package uses one-step coordinate descent algorithm and runs extremely fast b
 \tabular{ll}{
 Package: \tab APML0\cr
 Type: \tab Package\cr
-Version: \tab 0.7\cr
-Date: \tab 2018-01-24\cr
+Version: \tab 0.8\cr
+Date: \tab 2018-04-01\cr
 License: \tab GPL (>= 2)\cr
 }
 Functions:
@@ -24,8 +24,8 @@ Functions:
 Xiang Li, Shanghong Xie, Donglin Zeng and Yuanjia Wang\cr
 Maintainer: Xiang Li <xli256@its.jnj.com>
 }
-\references{Li, X., Xie, S., Zeng, D., Wang, Y. (2017).
-\emph{Efficient Method to Optimally Identify Important Biomarkers for Disease Outcomes with High-dimensional Data. Statistics in Medicine, in press.}\cr
+\references{Li, X., Xie, S., Zeng, D., Wang, Y. (2018).
+\emph{Efficient l0-norm feature selection based on augmented and penalized minimization. Statistics in Medicine, 37(3), 473-486.}\cr
 Boyd, S., Parikh, N., Chu, E., Peleato, B., & Eckstein, J. (2011).
   \emph{Distributed optimization and statistical learning via the alternating direction method of multipliers. Foundations and Trends in Machine Learning, 3(1), 1-122.}\cr
   \url{http://dl.acm.org/citation.cfm?id=2185816}\cr
