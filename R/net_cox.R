@@ -5,8 +5,8 @@
 #######################
 
 CoxL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NULL, nfolds=1, foldid=NULL, inzero=TRUE, wbeta=rep(1,ncol(x)), sgn=rep(1,ncol(x)), isd=FALSE, keep.beta=FALSE, ifast=TRUE, thresh=1e-6, maxit=1e+5) {
-  # x=xx; y=yy
-  # alpha=alphai; lambda=lambdai; nlambda=length(lambdai); keep.beta=TRUE; rlambda=NULL; ifast=TRUE; thresh=1e-6; maxit=1e+5; isd=FALSE
+  # x=xi; y=yi
+  # Omega=NULL; alpha=0.5; lambda=NULL; nlambda=10; rlambda=NULL; nfolds=10; foldid=NULL; ifast=TRUE; thresh=1e-6; maxit=1e+5; isd=FALSE; wbeta=rep(1,ncol(x)); sgn=rep(1,ncol(x))
 
   N0=nrow(x); p=ncol(x)
   ifast=as.integer(ifast)
@@ -65,8 +65,9 @@ CoxL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
   if (nlambdai==0)
     return(NULL)
   lambdai=lambda[1:nlambdai]
-
-  out$Beta=Matrix(out$Beta[, 1:nlambdai], sparse=TRUE)
+  
+  temi=out$Beta[, 1:nlambdai]; temi[is.na(temi)]=0.0
+  out$Beta=Matrix(temi, sparse=TRUE)
   out$BetaSTD=Matrix(out$BetaSTD[, 1:nlambdai], sparse=TRUE)
   out$nzero=apply(out$Beta!=0, 2, sum)
   out$flag=out$flag[1:nlambdai]
@@ -136,12 +137,13 @@ CoxL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
         return(list(Beta=out$Beta[,1:nlambdai], fit=temCV, lambda.min=lambdai[indexi], penalty=penalty, adaptive=adaptive, flag=out$flag[1:nlambdai]))
       }
     }
-
+    
     #####  Cross-validation hard threshold  #####
     il0=indexi;cvm=list();cv.max=rep(NA, nlambdai)
     repeat {
       numi=out$nzero[il0]
       Betai=sapply(outi, function(x){x$Beta[, il0]})
+      Betai[is.na(Betai)]=0
       BetaSTDi=sapply(outi, function(x){x$BetaSTD[, il0]})
 
       Betao=apply(Betai!=0, 2, sum)
@@ -188,6 +190,7 @@ CoxL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
           if (is.na(cv.max[il1[j]])) {
             numi=out$nzero[il1[j]]
             Betai=sapply(outi, function(x){x$Beta[, il1[j]]})
+            Betai[is.na(Betai)]=0
             BetaSTDi=sapply(outi, function(x){x$BetaSTD[, il1[j]]})
 
             Betao=apply(Betai!=0, 2, sum)
@@ -259,7 +262,7 @@ CoxL0=function(x, y, Omega=NULL, alpha=1.0, lambda=NULL, nlambda=100, rlambda=NU
     Beta0[abs(Beta0j)<=sort(abs(Beta0j),TRUE)[cuti+1]]=0
     BetaSTD0[abs(Beta0j)<=sort(abs(Beta0j),TRUE)[cuti+1]]=0
 
-    temCV0=data.frame(lambda=lambdai[index0],cvm=cv.max[index0],nzero=cuti-1)
+    temCV0=data.frame(lambda=lambdai[index0],cvm=cv.max[index0],nzero=cuti)
 
     temCV$cvm=-temCV$cvm; temCV0$cvm=-temCV0$cvm # compatible with LM
     if (!keep.beta) {

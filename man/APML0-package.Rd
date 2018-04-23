@@ -13,8 +13,8 @@ The package uses one-step coordinate descent algorithm and runs extremely fast b
 \tabular{ll}{
 Package: \tab APML0\cr
 Type: \tab Package\cr
-Version: \tab 0.8\cr
-Date: \tab 2018-04-01\cr
+Version: \tab 0.9\cr
+Date: \tab 2018-04-22\cr
 License: \tab GPL (>= 2)\cr
 }
 Functions:
