@@ -25,7 +25,7 @@ The data frame above is silently returned
 }
 \author{
 Xiang Li, Shanghong Xie, Donglin Zeng and Yuanjia Wang\cr
-Maintainer: Xiang Li <xli256@its.jnj.com>
+Maintainer: Xiang Li <spiritcoke@gmail.com>
 }
 
 \seealso{

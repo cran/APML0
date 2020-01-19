@@ -39,6 +39,8 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
@@ -58,6 +60,8 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
@@ -77,6 +81,8 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
@@ -96,101 +102,134 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
-    inline Eigen::VectorXd cvTrimLmC(Eigen::VectorXd beta, int nn, int nn2, Eigen::VectorXi loco, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double a0) {
-        typedef SEXP(*Ptr_cvTrimLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline List cvTrimLmC(Eigen::VectorXd beta, int nn, int nn2, Eigen::VectorXi loco, Eigen::MatrixXd X, Eigen::VectorXd y, int N, int p, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF) {
+        typedef SEXP(*Ptr_cvTrimLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_cvTrimLmC p_cvTrimLmC = NULL;
         if (p_cvTrimLmC == NULL) {
-            validateSignature("Eigen::VectorXd(*cvTrimLmC)(Eigen::VectorXd,int,int,Eigen::VectorXi,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
+            validateSignature("List(*cvTrimLmC)(Eigen::VectorXd,int,int,Eigen::VectorXi,Eigen::MatrixXd,Eigen::VectorXd,int,int,Eigen::MatrixXd,Eigen::VectorXd,int)");
             p_cvTrimLmC = (Ptr_cvTrimLmC)R_GetCCallable("APML0", "_APML0_cvTrimLmC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_cvTrimLmC(Shield<SEXP>(Rcpp::wrap(beta)), Shield<SEXP>(Rcpp::wrap(nn)), Shield<SEXP>(Rcpp::wrap(nn2)), Shield<SEXP>(Rcpp::wrap(loco)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(a0)));
+            rcpp_result_gen = p_cvTrimLmC(Shield<SEXP>(Rcpp::wrap(beta)), Shield<SEXP>(Rcpp::wrap(nn)), Shield<SEXP>(Rcpp::wrap(nn2)), Shield<SEXP>(Rcpp::wrap(loco)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
-        return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
+        return Rcpp::as<List >(rcpp_result_gen);
     }
 
-    inline List EnetLmC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, int p, int N0, double thresh, int maxit, double thresh2) {
-        typedef SEXP(*Ptr_EnetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline List cvHardLmC(Eigen::VectorXd beta, Eigen::VectorXd betaSTD, Eigen::VectorXd cut, Eigen::VectorXd wbeta, Eigen::MatrixXd X, Eigen::VectorXd y, int N, int p, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF) {
+        typedef SEXP(*Ptr_cvHardLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_cvHardLmC p_cvHardLmC = NULL;
+        if (p_cvHardLmC == NULL) {
+            validateSignature("List(*cvHardLmC)(Eigen::VectorXd,Eigen::VectorXd,Eigen::VectorXd,Eigen::VectorXd,Eigen::MatrixXd,Eigen::VectorXd,int,int,Eigen::MatrixXd,Eigen::VectorXd,int)");
+            p_cvHardLmC = (Ptr_cvHardLmC)R_GetCCallable("APML0", "_APML0_cvHardLmC");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_cvHardLmC(Shield<SEXP>(Rcpp::wrap(beta)), Shield<SEXP>(Rcpp::wrap(betaSTD)), Shield<SEXP>(Rcpp::wrap(cut)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<List >(rcpp_result_gen);
+    }
+
+    inline List EnetLmC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::VectorXd wbeta2, int p, int N0, double thresh, int maxit, double thresh2) {
+        typedef SEXP(*Ptr_EnetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_EnetLmC p_EnetLmC = NULL;
         if (p_EnetLmC == NULL) {
-            validateSignature("List(*EnetLmC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,int,int,double,int,double)");
+            validateSignature("List(*EnetLmC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::VectorXd,int,int,double,int,double)");
             p_EnetLmC = (Ptr_EnetLmC)R_GetCCallable("APML0", "_APML0_EnetLmC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_EnetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(thresh2)));
+            rcpp_result_gen = p_EnetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbeta2)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(thresh2)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
     }
 
-    inline List cvEnetLmC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, int N, int p, double thresh, int maxit, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double thresh2) {
-        typedef SEXP(*Ptr_cvEnetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline List cvEnetLmC(Eigen::MatrixXd X, Eigen::VectorXd y, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, Eigen::VectorXd wbeta2, int N, int p, double thresh, int maxit, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double thresh2) {
+        typedef SEXP(*Ptr_cvEnetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_cvEnetLmC p_cvEnetLmC = NULL;
         if (p_cvEnetLmC == NULL) {
-            validateSignature("List(*cvEnetLmC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,int,int,double,int,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
+            validateSignature("List(*cvEnetLmC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,Eigen::VectorXd,int,int,double,int,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
             p_cvEnetLmC = (Ptr_cvEnetLmC)R_GetCCallable("APML0", "_APML0_cvEnetLmC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_cvEnetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(thresh2)));
+            rcpp_result_gen = p_cvEnetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbeta2)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(thresh2)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
     }
 
-    inline List NetLmC(Eigen::MatrixXd& X, Eigen::VectorXd& y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int p, int N0, double thresh, int maxit, double thresh2) {
-        typedef SEXP(*Ptr_NetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline List NetLmC(Eigen::MatrixXd& X, Eigen::VectorXd& y, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::VectorXd wbeta2, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int p, int N0, double thresh, int maxit, double thresh2) {
+        typedef SEXP(*Ptr_NetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_NetLmC p_NetLmC = NULL;
         if (p_NetLmC == NULL) {
-            validateSignature("List(*NetLmC)(Eigen::MatrixXd&,Eigen::VectorXd&,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,double,int,double)");
+            validateSignature("List(*NetLmC)(Eigen::MatrixXd&,Eigen::VectorXd&,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,double,int,double)");
             p_NetLmC = (Ptr_NetLmC)R_GetCCallable("APML0", "_APML0_NetLmC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_NetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(thresh2)));
+            rcpp_result_gen = p_NetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbeta2)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(thresh2)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
     }
 
-    inline List cvNetLmC(Eigen::MatrixXd& X, Eigen::VectorXd& y, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int N, int p, double thresh, int maxit, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double thresh2) {
-        typedef SEXP(*Ptr_cvNetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline List cvNetLmC(Eigen::MatrixXd& X, Eigen::VectorXd& y, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, Eigen::VectorXd wbeta2, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int N, int p, double thresh, int maxit, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double thresh2) {
+        typedef SEXP(*Ptr_cvNetLmC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_cvNetLmC p_cvNetLmC = NULL;
         if (p_cvNetLmC == NULL) {
-            validateSignature("List(*cvNetLmC)(Eigen::MatrixXd&,Eigen::VectorXd&,double,Eigen::VectorXd,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,double,int,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
+            validateSignature("List(*cvNetLmC)(Eigen::MatrixXd&,Eigen::VectorXd&,double,Eigen::VectorXd,int,Eigen::VectorXd,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,int,double,int,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
             p_cvNetLmC = (Ptr_cvNetLmC)R_GetCCallable("APML0", "_APML0_cvNetLmC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_cvNetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(thresh2)));
+            rcpp_result_gen = p_cvNetLmC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbeta2)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(thresh2)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
@@ -210,6 +249,8 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<double >(rcpp_result_gen);
@@ -229,6 +270,8 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<double >(rcpp_result_gen);
@@ -248,82 +291,113 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
     }
 
-    inline List EnetCoxC(Eigen::MatrixXd X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast) {
-        typedef SEXP(*Ptr_EnetCoxC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline Eigen::VectorXd cvHardCoxC(Eigen::VectorXd beta, Eigen::VectorXd betaSTD, Eigen::VectorXd cut, Eigen::VectorXd wbeta, int p, Eigen::MatrixXd XF, int NF, Eigen::VectorXi neventF, Eigen::VectorXi nevent1F, Eigen::VectorXi loc1F, int nF, Eigen::MatrixXd X, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int ifast, int itwo) {
+        typedef SEXP(*Ptr_cvHardCoxC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_cvHardCoxC p_cvHardCoxC = NULL;
+        if (p_cvHardCoxC == NULL) {
+            validateSignature("Eigen::VectorXd(*cvHardCoxC)(Eigen::VectorXd,Eigen::VectorXd,Eigen::VectorXd,Eigen::VectorXd,int,Eigen::MatrixXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,Eigen::MatrixXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int)");
+            p_cvHardCoxC = (Ptr_cvHardCoxC)R_GetCCallable("APML0", "_APML0_cvHardCoxC");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_cvHardCoxC(Shield<SEXP>(Rcpp::wrap(beta)), Shield<SEXP>(Rcpp::wrap(betaSTD)), Shield<SEXP>(Rcpp::wrap(cut)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(neventF)), Shield<SEXP>(Rcpp::wrap(nevent1F)), Shield<SEXP>(Rcpp::wrap(loc1F)), Shield<SEXP>(Rcpp::wrap(nF)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(ifast)), Shield<SEXP>(Rcpp::wrap(itwo)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
+    }
+
+    inline List EnetCoxC(Eigen::MatrixXd X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::VectorXd wbeta2, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast) {
+        typedef SEXP(*Ptr_EnetCoxC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_EnetCoxC p_EnetCoxC = NULL;
         if (p_EnetCoxC == NULL) {
-            validateSignature("List(*EnetCoxC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int)");
+            validateSignature("List(*EnetCoxC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::VectorXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int)");
             p_EnetCoxC = (Ptr_EnetCoxC)R_GetCCallable("APML0", "_APML0_EnetCoxC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_EnetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)));
+            rcpp_result_gen = p_EnetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbeta2)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
     }
 
-    inline List cvEnetCoxC(Eigen::MatrixXd X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast, Eigen::MatrixXd XF, int NF, Eigen::VectorXi neventF, Eigen::VectorXi nevent1F, Eigen::VectorXi loc1F, int nF) {
-        typedef SEXP(*Ptr_cvEnetCoxC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline List cvEnetCoxC(Eigen::MatrixXd X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, Eigen::VectorXd wbeta2, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast, Eigen::MatrixXd XF, int NF, Eigen::VectorXi neventF, Eigen::VectorXi nevent1F, Eigen::VectorXi loc1F, int nF) {
+        typedef SEXP(*Ptr_cvEnetCoxC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_cvEnetCoxC p_cvEnetCoxC = NULL;
         if (p_cvEnetCoxC == NULL) {
-            validateSignature("List(*cvEnetCoxC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int,Eigen::MatrixXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int)");
+            validateSignature("List(*cvEnetCoxC)(Eigen::MatrixXd,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,Eigen::VectorXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int,Eigen::MatrixXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int)");
             p_cvEnetCoxC = (Ptr_cvEnetCoxC)R_GetCCallable("APML0", "_APML0_cvEnetCoxC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_cvEnetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(neventF)), Shield<SEXP>(Rcpp::wrap(nevent1F)), Shield<SEXP>(Rcpp::wrap(loc1F)), Shield<SEXP>(Rcpp::wrap(nF)));
+            rcpp_result_gen = p_cvEnetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbeta2)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(neventF)), Shield<SEXP>(Rcpp::wrap(nevent1F)), Shield<SEXP>(Rcpp::wrap(loc1F)), Shield<SEXP>(Rcpp::wrap(nF)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
     }
 
-    inline List NetCoxC(Eigen::MatrixXd& X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast) {
-        typedef SEXP(*Ptr_NetCoxC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline List NetCoxC(Eigen::MatrixXd& X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, int ilambda, Eigen::VectorXd wbeta, Eigen::VectorXd wbeta2, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast) {
+        typedef SEXP(*Ptr_NetCoxC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_NetCoxC p_NetCoxC = NULL;
         if (p_NetCoxC == NULL) {
-            validateSignature("List(*NetCoxC)(Eigen::MatrixXd&,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int)");
+            validateSignature("List(*NetCoxC)(Eigen::MatrixXd&,Eigen::VectorXd,double,Eigen::VectorXd,int,int,Eigen::VectorXd,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int)");
             p_NetCoxC = (Ptr_NetCoxC)R_GetCCallable("APML0", "_APML0_NetCoxC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_NetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)));
+            rcpp_result_gen = p_NetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(ilambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbeta2)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
     }
 
-    inline List cvNetCoxC(Eigen::MatrixXd& X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast, Eigen::MatrixXd XF, int NF, Eigen::VectorXi neventF, Eigen::VectorXi nevent1F, Eigen::VectorXi loc1F, int nF) {
-        typedef SEXP(*Ptr_cvNetCoxC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline List cvNetCoxC(Eigen::MatrixXd& X, Eigen::VectorXd tevent, double alpha, Eigen::VectorXd lambda, int nlambda, Eigen::VectorXd wbeta, Eigen::VectorXd wbeta2, Eigen::SparseMatrix<double>& Omega, Eigen::MatrixXd loc, Eigen::VectorXi nadj, int N, Eigen::VectorXi nevent, Eigen::VectorXi nevent1, Eigen::VectorXi loc1, int n, int p, int N0, double thresh, int maxit, int ifast, Eigen::MatrixXd XF, int NF, Eigen::VectorXi neventF, Eigen::VectorXi nevent1F, Eigen::VectorXi loc1F, int nF) {
+        typedef SEXP(*Ptr_cvNetCoxC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_cvNetCoxC p_cvNetCoxC = NULL;
         if (p_cvNetCoxC == NULL) {
-            validateSignature("List(*cvNetCoxC)(Eigen::MatrixXd&,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int,Eigen::MatrixXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int)");
+            validateSignature("List(*cvNetCoxC)(Eigen::MatrixXd&,Eigen::VectorXd,double,Eigen::VectorXd,int,Eigen::VectorXd,Eigen::VectorXd,Eigen::SparseMatrix<double>&,Eigen::MatrixXd,Eigen::VectorXi,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int,int,int,double,int,int,Eigen::MatrixXd,int,Eigen::VectorXi,Eigen::VectorXi,Eigen::VectorXi,int)");
             p_cvNetCoxC = (Ptr_cvNetCoxC)R_GetCCallable("APML0", "_APML0_cvNetCoxC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_cvNetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(neventF)), Shield<SEXP>(Rcpp::wrap(nevent1F)), Shield<SEXP>(Rcpp::wrap(loc1F)), Shield<SEXP>(Rcpp::wrap(nF)));
+            rcpp_result_gen = p_cvNetCoxC(Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(tevent)), Shield<SEXP>(Rcpp::wrap(alpha)), Shield<SEXP>(Rcpp::wrap(lambda)), Shield<SEXP>(Rcpp::wrap(nlambda)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(wbeta2)), Shield<SEXP>(Rcpp::wrap(Omega)), Shield<SEXP>(Rcpp::wrap(loc)), Shield<SEXP>(Rcpp::wrap(nadj)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(nevent)), Shield<SEXP>(Rcpp::wrap(nevent1)), Shield<SEXP>(Rcpp::wrap(loc1)), Shield<SEXP>(Rcpp::wrap(n)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(N0)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(ifast)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(neventF)), Shield<SEXP>(Rcpp::wrap(nevent1F)), Shield<SEXP>(Rcpp::wrap(loc1F)), Shield<SEXP>(Rcpp::wrap(nF)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
@@ -343,25 +417,50 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
-    inline Eigen::VectorXd cvTrimLogC(Eigen::VectorXd beta, int nn, int nn2, Eigen::VectorXi loco, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double threshP) {
-        typedef SEXP(*Ptr_cvTrimLogC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+    inline Eigen::VectorXd cvTrimLogC(Eigen::VectorXd beta, int nn, int nn2, Eigen::VectorXi loco, Eigen::MatrixXd X, Eigen::VectorXd y, int N, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double thresh, int maxit, double threshP) {
+        typedef SEXP(*Ptr_cvTrimLogC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_cvTrimLogC p_cvTrimLogC = NULL;
         if (p_cvTrimLogC == NULL) {
-            validateSignature("Eigen::VectorXd(*cvTrimLogC)(Eigen::VectorXd,int,int,Eigen::VectorXi,Eigen::MatrixXd,Eigen::VectorXd,int,double)");
+            validateSignature("Eigen::VectorXd(*cvTrimLogC)(Eigen::VectorXd,int,int,Eigen::VectorXi,Eigen::MatrixXd,Eigen::VectorXd,int,Eigen::MatrixXd,Eigen::VectorXd,int,double,int,double)");
             p_cvTrimLogC = (Ptr_cvTrimLogC)R_GetCCallable("APML0", "_APML0_cvTrimLogC");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_cvTrimLogC(Shield<SEXP>(Rcpp::wrap(beta)), Shield<SEXP>(Rcpp::wrap(nn)), Shield<SEXP>(Rcpp::wrap(nn2)), Shield<SEXP>(Rcpp::wrap(loco)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(threshP)));
+            rcpp_result_gen = p_cvTrimLogC(Shield<SEXP>(Rcpp::wrap(beta)), Shield<SEXP>(Rcpp::wrap(nn)), Shield<SEXP>(Rcpp::wrap(nn2)), Shield<SEXP>(Rcpp::wrap(loco)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(threshP)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
+    }
+
+    inline Eigen::VectorXd cvHardLogC(Eigen::VectorXd beta, Eigen::VectorXd betaSTD, Eigen::VectorXd cut, Eigen::VectorXd wbeta, Eigen::MatrixXd X, Eigen::VectorXd y, int N, int p, Eigen::MatrixXd XF, Eigen::VectorXd yF, int NF, double thresh, int maxit, double threshP) {
+        typedef SEXP(*Ptr_cvHardLogC)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_cvHardLogC p_cvHardLogC = NULL;
+        if (p_cvHardLogC == NULL) {
+            validateSignature("Eigen::VectorXd(*cvHardLogC)(Eigen::VectorXd,Eigen::VectorXd,Eigen::VectorXd,Eigen::VectorXd,Eigen::MatrixXd,Eigen::VectorXd,int,int,Eigen::MatrixXd,Eigen::VectorXd,int,double,int,double)");
+            p_cvHardLogC = (Ptr_cvHardLogC)R_GetCCallable("APML0", "_APML0_cvHardLogC");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_cvHardLogC(Shield<SEXP>(Rcpp::wrap(beta)), Shield<SEXP>(Rcpp::wrap(betaSTD)), Shield<SEXP>(Rcpp::wrap(cut)), Shield<SEXP>(Rcpp::wrap(wbeta)), Shield<SEXP>(Rcpp::wrap(X)), Shield<SEXP>(Rcpp::wrap(y)), Shield<SEXP>(Rcpp::wrap(N)), Shield<SEXP>(Rcpp::wrap(p)), Shield<SEXP>(Rcpp::wrap(XF)), Shield<SEXP>(Rcpp::wrap(yF)), Shield<SEXP>(Rcpp::wrap(NF)), Shield<SEXP>(Rcpp::wrap(thresh)), Shield<SEXP>(Rcpp::wrap(maxit)), Shield<SEXP>(Rcpp::wrap(threshP)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
@@ -381,6 +480,8 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
@@ -400,6 +501,8 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
@@ -419,6 +522,8 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
@@ -438,6 +543,8 @@ namespace APML0 {
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
         if (rcpp_result_gen.inherits("try-error"))
             throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<List >(rcpp_result_gen);
